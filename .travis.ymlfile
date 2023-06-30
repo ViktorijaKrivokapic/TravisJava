@@ -1,8 +1,6 @@
 os: linux
 
-language: ruby
-
-ruby: 3.1.2
+language: java
 
 dist: bionic
 
