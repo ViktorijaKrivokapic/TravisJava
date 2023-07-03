@@ -7,7 +7,7 @@ install: skip
 jobs:
   include:
     - name: failing
-      script: false
+      script: true
 
 after_success:
   - echo done
