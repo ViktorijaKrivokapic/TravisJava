@@ -1,2 +1,2 @@
 BSFY-249 test 2
-git push
+git merge
