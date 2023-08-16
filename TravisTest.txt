@@ -1,3 +1,4 @@
 BSFY-249 test 2
 nova izmjena
 triggering build
+triggering build 2
