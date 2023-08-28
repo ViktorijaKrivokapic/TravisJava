@@ -2,4 +2,4 @@ BSFY-249 test 2
 nova izmjena
 triggering build
 push to a branch
-50k test
+50k test test
