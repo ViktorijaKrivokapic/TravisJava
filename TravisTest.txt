@@ -3,3 +3,4 @@ nova izmjena
 triggering build
 push to a branch
 50k test test test
+standard plan
