@@ -1,6 +1,8 @@
-7423074!@#$%^
+
 os: linux
 language: java
+vm:
+  size: [large]
 dist: bionic
 
 install: skip
