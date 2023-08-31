@@ -4,6 +4,7 @@ triggering build
 push to a branch
 standard plan test
 concurrent plan test
+test
 
 
 
