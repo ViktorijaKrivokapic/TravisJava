@@ -1,0 +1,25 @@
+os: linux
+
+deploy:
+  provider: heroku:git
+  api_key:7d6a280a-3ba3-4fdf-9139-510ffad7f966
+  edge: true 
+
+vm:
+  size: [large]
+language: java
+dist: bionic
+
+install: skip
+
+jobs:
+  include:
+    - name: failing
+      script: true
+
+after_success:
+  - echo done
+  - echo $TRAVIS_TEST_RESULT
+after_failure:
+  - echo failed
+  - echo $TRAVIS_TEST_RESULT
