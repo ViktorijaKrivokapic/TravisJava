@@ -5,6 +5,7 @@ vm:
 language: java
 dist: bionic
 deploy:
+on:
   all_branches: true
   provider: heroku/java
   api_key:
