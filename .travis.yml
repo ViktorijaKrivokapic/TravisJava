@@ -4,7 +4,6 @@ vm:
   size: large
 language: java
 dist: bionic
-heroku buildpacks: set heroku/java
 deploy:
   provider: heroku:git
   api_key:
