@@ -6,7 +6,7 @@ deploy:
   edge: true 
 
 vm:
-  size: [large]
+  size: large
 language: java
 dist: bionic
 
