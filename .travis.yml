@@ -8,9 +8,6 @@ rvm: 3.2
 dist: jammy
 script:
   - gem build
-  - rvm $(travis_internal_ruby) --fuzzy do ruby -S gem install specific_install
-  - rvm $(travis_internal_ruby) --fuzzy do ruby -S gem specific_install -l
-    https://github.com/zgid123/cl
 deploy:
   provider: heroku:git
   gem: dpltest
@@ -20,6 +17,9 @@ deploy:
     branch: prd-ruby-upgrade-dev-o
   on:
     all_branches: true
+before_install:
+- rvm $(travis_internal_ruby) --fuzzy do ruby -S gem install specific_install
+- rvm $(travis_internal_ruby) --fuzzy do ruby -S gem specific_install -l https://github.com/zgid123/cl    
 install: skip
 after_success:
   - echo done
