@@ -1,10 +1,9 @@
----
 os: linux
 app: testingtravisheroku
 vm:
   size: large
 language: java
-dist: bionic
+dist: jammy
 deploy:
   on:
     all_branches: true
@@ -13,6 +12,9 @@ deploy:
     secure: mBw5B/p0aa3n3cATiHeLptzqjv0KaUwPnkSaE8lwcJw/D/7x72xb9Zvpj4xAbRr6zNQXCUEKmc68aqthdlDasglWaWlgKx1dXt4i8iD1WUtFUSy+DE24+VNNbEZlzdZVYusWxS1qfii/pmoiY8jRjXHG0sZT/KPSPbm+XCORpNw6txDyhUByLxlJwPAB7q2r8c01NGWR++09JfzoXSNCJgMkHQX7JsMQH+htXmgP3nNuor5F5OI5D/8EMIiF/J/TYO8tkYCSLDJPOdkgF7hcwnQuZ8VAmnD/HjY2jUxNJbkyYStJ0as8LZ7RJvisKdz69iHjjz8d+5NFhalKNHV8lou92TYkBHqT/I8LDO6V6BqoNVb2rCZSCvUx5eHB970w6YPPu43etau8x41nDHCorXil3W7i0j7lVuDeFQVmUVJ3+tQw5zZrFeBoxIlJ7cMkh5u/LLLIAhVKrh4oIRXGki2dzpQKypxMgApGuQZ2frAvuwIbqQHiVJ18L7hgRYAp7aCQSooPDjajPnGUmL1/59mk/2BfHwvoIa/RRPDBGaJOEMnZbQoBa2kNesXLXDr7xtF8U0e+Iyu4Ulb2hTSsYaErPnpjkS4+JeYkmSZaSaPOl/mdQsB2VfT5dDcx6PDbWyz9zUdM8dZdn+RfZ/sc+QNLodbhkxkt1H6afLge8ns=
   edge: 
     branch: prd-ruby-upgrade-dev-o
+before_install: 
+- rvm $(travis_internal_ruby) --fuzzy do ruby -S gem install specific_install
+- rvm $(travis_internal_ruby) --fuzzy do ruby -S gem specific_install -l https://github.com/zgid123/cl
 install: skip
 jobs:
   include:
@@ -24,4 +26,3 @@ after_success:
 after_failure:
   - echo failed
   - echo $TRAVIS_TEST_RESULT
-
