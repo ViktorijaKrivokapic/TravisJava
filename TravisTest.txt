@@ -1,2 +1,9 @@
 BSFY-237 test 2
 test notifications
+nova izmjena
+triggering build
+push to a branch
+standard plan test
+concurrent plan test
+teest
+ttt
