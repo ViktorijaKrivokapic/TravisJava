@@ -5,14 +5,18 @@ vm:
 language: java
 dist: bionic
 jobs:
-include:
-    - stage: st1
-      name: job1
+ include:
+    - stage: warm_cache
+      script:
+        - echo "foo" > foo.txt
       workspaces:
         create:
           name: ws1
           paths:
-          - wspath1
-          - wspath2
-
+            - foo.txt
+    - stage: use_cache
+      workspaces:
+        use: ws1
+      script:
+        - cat foo.txt || true
 
