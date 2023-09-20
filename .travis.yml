@@ -1,8 +1,24 @@
-language: python
-python:
-  - "3.8"
-script:
-  - python -c "print('Log line\n'*200000)"
-env:
-  global:
-    - log_limit=30
+os: linux
+dist: focal
+language: cpp
+jobs:
+  include:
+    - stage: st1
+      name: job1
+      workspaces:
+        create:
+          name: ws1
+          paths:
+          - wspath1
+          - wspath2
+      script:
+      - echo "ws1.1 $(date)" >> wspath1/testfile1
+      - echo "ws1.2 $(date)" >> wspath2/testfile2
+    - stage: st2
+      name: job2
+      workspaces:
+        use: ws1
+      script:
+        - cat wspath1/testfile1
+        - cat wspath2/testfile2
+
