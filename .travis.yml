@@ -4,6 +4,7 @@ vm:
   size: [large]
 language: java
 dist: bionic
+jobs:
 include:
     - stage: st1
       name: job1
