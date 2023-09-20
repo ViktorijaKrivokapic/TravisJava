@@ -1,24 +1,15 @@
-os: linux
-dist: focal
-language: cpp
 jobs:
   include:
-    - stage: st1
-      name: job1
+    - stage: warm_cache
+      script:
+        - echo "foo" > foo.txt
       workspaces:
         create:
           name: ws1
           paths:
-          - wspath1
-          - wspath2
-      script:
-      - echo "ws1.1 $(date)" >> wspath1/testfile1
-      - echo "ws1.2 $(date)" >> wspath2/testfile2
-    - stage: st2
-      name: job2
+            - foo.txt
+    - stage: use_cache
       workspaces:
         use: ws1
       script:
-        - cat wspath1/testfile1
-        - cat wspath2/testfile2
-
+        - cat foo.txt || true
