@@ -1,15 +1,17 @@
-jobs:
-  include:
-    - stage: warm_cache
-      script:
-        - echo "foo" > foo.txt
+os: linux
+
+vm:
+  size: [large]
+language: java
+dist: bionic
+include:
+    - stage: st1
+      name: job1
       workspaces:
         create:
           name: ws1
           paths:
-            - foo.txt
-    - stage: use_cache
-      workspaces:
-        use: ws1
-      script:
-        - cat foo.txt || true
+          - wspath1
+          - wspath2
+
+
