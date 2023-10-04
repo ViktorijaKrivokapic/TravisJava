@@ -6,6 +6,7 @@ standard plan test
 concurrent plan test
 teest
 t
+new test
 
 
 
