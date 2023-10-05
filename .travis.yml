@@ -4,19 +4,18 @@ vm:
   size: [large]
 language: java
 dist: bionic
+
+install: skip
+
 jobs:
- include:
-    - stage: warm_cache
-      script:
-        - echo "foo" > foo.txt
-      workspaces:
-        create:
-          name: ws1
-          paths:
-            - foo.txt
-    - stage: use_cache
-      workspaces:
-        use: ws1
-      script:
-        - cat foo.txt || true
+  include:
+    - name: failing
+      script: true
+
+after_success:
+  - echo done
+  - echo $TRAVIS_TEST_RESULT
+after_failure:
+  - echo failed
+  - echo $TRAVIS_TEST_RESULT
 
