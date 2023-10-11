@@ -2,7 +2,7 @@ os: linux
 
 vm:
   size: [large]
-language: hehehehe
+language: java
 dist: bionic
 
 install: skip
