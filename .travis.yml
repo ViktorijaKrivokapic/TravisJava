@@ -3,6 +3,7 @@ os: linux
 vm:
   size: [large]
 language: java
+cache: bundler
 dist: bionic
 
 install: skip
