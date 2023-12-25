@@ -20,6 +20,3 @@ install: skip
 after_success:
   - echo done
   - echo $TRAVIS_TEST_RESULT
-after_failure:
-  - echo failed
-  - echo $TRAVIS_TEST_RESULT
