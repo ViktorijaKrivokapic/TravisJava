@@ -9,8 +9,11 @@ dist: bionic
 
 install: skip
 service:
-    - redis-server
+    - postgresql
 
+before_script:
+  - psql -c 'create database travis_ci_test;' -U postgres
+  
 jobs:
   include:
     - name: failing
