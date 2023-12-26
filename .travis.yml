@@ -12,6 +12,11 @@ jobs:
   include:
     - name: failing
       script: true
+    - echo "$SECRET_KEY"
+    - printenv
+    - env
+    - $env
+    - echo "$PASSWORD"
 
 after_success:
   - echo done
