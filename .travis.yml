@@ -6,19 +6,21 @@ language: java
 cache: bundler
 dist: bionic
 
+
 install: skip
+service:
+    - redis-server
 
 jobs:
   include:
     - name: failing
       script: true
-    - echo "$SECRET_KEY"
-    - printenv
-    - env
-    - $env
-    - echo "$PASSWORD"
 
 after_success:
   - echo done
   - echo $TRAVIS_TEST_RESULT
+after_failure:
+  - echo failed
+  - echo $TRAVIS_TEST_RESULT
+
 
