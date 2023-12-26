@@ -12,9 +12,9 @@ install: skip
   
 jobs:
   include:
-   rvm:
-   - 2.5
-   - 2.2
+rvm:
+- 2.5
+- 2.2
 gemfile:
 - gemfiles/Gemfile.rails-3.2.x
 - gemfiles/Gemfile.rails-3.0.x
@@ -22,11 +22,5 @@ env:
 - ISOLATED=true
 - ISOLATED=false
    
-after_success:
-  - echo done
-  - echo $TRAVIS_TEST_RESULT
-after_failure:
-  - echo failed
-  - echo $TRAVIS_TEST_RESULT
 
 
