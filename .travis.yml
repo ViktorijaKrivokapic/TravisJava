@@ -24,7 +24,7 @@ run_phase: "after_failure" #
 output_format: "spdx-json" #
 output_dir: "/test" #
 input_dir: "/node" #
-User has created a single container with  SBOM Tooling  installed
+
 
 
 
