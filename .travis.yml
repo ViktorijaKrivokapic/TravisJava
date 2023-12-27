@@ -1,29 +1,26 @@
 os: linux
-dist: focal
-language: node_js
+
+vm:
+  size: [large]
+language: java
+cache: bundler
+dist: bionic
+
+
+install: skip
+
 jobs:
-include:
+  include:
+    - name: failing
+      script: true
 
-name: "test" # existing functionality
-script: # existing functionality
+after_success:
+  - echo done
+  - echo $TRAVIS_TEST_RESULT
+after_failure:
+  - echo failed
+  - echo $TRAVIS_TEST_RESULT
 
-npm -v
-name: "sbom"
-script: # existing functionality
-
-cd node
-npm install
-addons:
-sbom:
-on:
-branch: 'main'
-pr: true
-
-condition: true
-run_phase: "after_failure" #
-output_format: "spdx-json" #
-output_dir: "/test" #
-input_dir: "/node" #
 
 
 
