@@ -1,19 +1,24 @@
 os: linux
+
 vm:
-  size:
-    - large
+  size: [large]
 language: java
+services:
+  - docker
 cache: bundler
 dist: bionic
+
+
 install: skip
+
 jobs:
-  script: echo test
-rvm:
-  - 2.5
-  - 2.2
-gemfile:
-- gemfiles/Gemfile.rails-3.2.x
-- gemfiles/Gemfile.rails-3.0.x
-env:
-  - ISOLATED=true
-  - ISOLATED=false
+  include:
+    - name: failing
+      script: true
+
+after_success:
+  - echo done
+  - echo $TRAVIS_TEST_RESULT
+after_failure:
+  - echo failed
+  - echo $TRAVIS_TEST_RESULT
