@@ -1,26 +1,22 @@
 os: linux
-
 vm:
-  size: [large]
+  size:
+    - large
 language: java
 cache: bundler
 dist: bionic
-
-
 install: skip
-
 jobs:
-  include:
+  include: null
 rvm:
-- 2.5
-- 2.2
+  - 2.5
+  - 2.2
 gemfile:
-- gemfiles/Gemfile.rails-3.2.x
-- gemfiles/Gemfile.rails-3.0.x
+  - gemfiles/Gemfile.rails-3.2.x
+  - gemfiles/Gemfile.rails-3.0.x
 env:
-- ISOLATED=true
-- ISOLATED=false
-
+  - ISOLATED=true
+  - ISOLATED=false
 after_success:
   - echo done
   - echo $TRAVIS_TEST_RESULT
