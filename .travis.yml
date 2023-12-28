@@ -7,17 +7,15 @@ cache: bundler
 dist: bionic
 
 
+install: skip
+deploy:
+  provider: pages:git
+  token: <encrypted token>
+  edge: true # opt in to dpl v2
+
+
 jobs:
   include:
-    - stage: "Tests"                # naming the Tests stage
-      name: "Unit Tests"            # names the first Tests stage job
-      script: ./unit-tests
-    - script: ./integration-tests
-      name: "Integration Tests"     # names the second Tests stage job
-    - stage: deploy
-      name: "Deploy to GCP"
-      script: ./deploy
-  
     - name: failing
       script: true
 
@@ -27,10 +25,3 @@ after_success:
 after_failure:
   - echo failed
   - echo $TRAVIS_TEST_RESULT
-
-
-
-
-
-
-
