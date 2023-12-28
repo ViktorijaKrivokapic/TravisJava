@@ -3,13 +3,19 @@ os: linux
 vm:
   size: [large]
 language: java
-services:
-  - docker
-before_install:
-  - docker build -t carlad/sinatra .
-  - docker run -d -p 127.0.0.1:80:4567 carlad/sinatra /bin/sh -c "cd /root/sinatra; bundle exec foreman start;"
-  - docker ps -a
-  - docker run carlad/sinatra /bin/sh -c "cd /root/sinatra; bundle exec rake test"
+cache: bundler
+dist: bionic
 
-script:
-  - bundle exec rake test
+install: skip
+
+jobs:
+  include:
+      script: true
+	  echo "$SECRET_KEY"
+
+after_success:
+  - echo done
+  - echo $TRAVIS_TEST_RESULT
+after_failure:
+  - echo failed
+  - echo $TRAVIS_TEST_RESULT
