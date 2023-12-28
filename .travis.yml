@@ -8,16 +8,18 @@ dist: bionic
 
 
 install: skip
-addons:
-  apt:
-    sources:
-    - deadsnakes
-    - sourceline: 'ppa:ubuntu-toolchain-r/test'
-    - sourceline: 'deb https://packagecloud.io/chef/stable/ubuntu/precise main'
-      key_url: 'https://packagecloud.io/gpg.key'
 
 jobs:
   include:
+    - stage: "Tests"                # naming the Tests stage
+      name: "Unit Tests"            # names the first Tests stage job
+      script: ./unit-tests
+    - script: ./integration-tests
+      name: "Integration Tests"     # names the second Tests stage job
+    - stage: deploy
+      name: "Deploy to GCP"
+      script: ./deploy
+  
     - name: failing
       script: true
 
