@@ -8,16 +8,15 @@ dist: bionic
 
 
 install: skip
-deploy:
-  provider: pages:git
-  token: <encrypted token>
-  edge: true # opt in to dpl v2
-
 
 jobs:
   include:
-    - name: failing
-      script: true
+  - rvm: 2.5
+    gemfile: gemfiles/Gemfile.rails-3.2.x
+    env: ISOLATED=false
+  - rvm: 2.2
+    gemfile: gemfiles/Gemfile.rails-3.0.x
+    env: ISOLATED=true
 
 after_success:
   - echo done
