@@ -7,8 +7,6 @@ cache: bundler
 dist: bionic
 
 
-install: skip
-
 jobs:
   include:
     - stage: "Tests"                # naming the Tests stage
