@@ -11,7 +11,8 @@ install: skip
 jobs:
   include:
        - name: failing
-        -script: true
+       - script: true
+       - SOMEVAR: vickisecret
 
 after_success:
   - echo done
