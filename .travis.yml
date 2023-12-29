@@ -10,8 +10,8 @@ install: skip
 
 jobs:
   include:
-      script: true
-	  echo "$SECRET_KEY"
+       - name: failing
+        -script: true
 
 after_success:
   - echo done
