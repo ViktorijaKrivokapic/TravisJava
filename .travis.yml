@@ -7,11 +7,11 @@ services:
   - docker
 cache: bundler
 dist: xenial
+before_install:
+  - sudo apt-get -y install libxml2-dev
 addons:
-     snaps:
-       - hugo
-
-install: skip
+  apt:
+    update: true
 
 jobs:
   include:
