@@ -8,12 +8,13 @@ services:
 cache: bundler
 dist: bionic
 
+
 install: skip
 
+jobs:
   include:
     - name: failing
       script: true
-
 
 after_success:
   - echo done
@@ -21,4 +22,3 @@ after_success:
 after_failure:
   - echo failed
   - echo $TRAVIS_TEST_RESULT
-
