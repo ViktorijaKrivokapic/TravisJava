@@ -7,7 +7,7 @@ services:
   - docker
 cache: bundler
 dist: xenial
-   addons:
+addons:
      snaps:
        - hugo
 
