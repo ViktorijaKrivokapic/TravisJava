@@ -4,15 +4,11 @@ vm:
   size: [large]
 language: java
 services:
-  - docker
+  - postgresql
 cache: bundler
 dist: xenial
-before_install:
-  - sudo apt-get -y install libxml2-dev
-addons:
-  apt:
-    update: true
-
+before_script:
+  - psql -c 'create database travis_ci_test;' -U postgres
 jobs:
   include:
     - name: failing
