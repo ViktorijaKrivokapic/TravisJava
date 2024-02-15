@@ -1,23 +1,25 @@
 os: linux
+
 vm:
-  size:
-  - large
+  size: [large]
 language: java
+services:
+  - postgresql
 cache: bundler
+
 dist: bionic
 install: skip
 before_install: openssl aes-256-cbc -K $encrypted_6330fb5ca1fb_key -iv $encrypted_6330fb5ca1fb_iv -in secret.json.enc -out secret.json -d
+
 jobs:
+  SECRET_KEY: sifra###
   include:
-  - name: failing
-  - script: true
-  - SOMEVAR: vickisecret
+    - name: failing
+      script: true
+
 after_success:
-- echo done
-- echo $TRAVIS_TEST_RESULT
+  - echo done
+  - echo $TRAVIS_TEST_RESULT
 after_failure:
-- echo failed
-- echo $TRAVIS_TEST_RESULT
-dd:
-  secure: FxT0gsNkO1w3h+3N6FrvkZxzdxD/1I7MOKObfMZ0dK6FubZ69qKf8zohwQ2MOduoGMwvy0S95+sriWLsZTNfQWl8gn3EpmIktat8sTxzBjC0fI/NByeHPTg6cXoP2fBfaXLWJkG06VWdZaZSHBiT8Ur0TtXnCz8SC2Lci3rkUnCVOtVdt253lVSwRtzsw9vEWJMWW+moUJqA2Ogsw3jxTiJiJ07eUwM0Qh7U3sMSu+LNe1Hob8X0h3mCV0SpUiWPvuRDHQ/5ISxmi8frLnR9cjM+aOtYW1C8z5JUEwCHl5KbZoS7K8xlvycaotk44MWTz9MoXeUxye8xzf+9slNIx9EReSel9GpQ3cMKnZt2t0ykzGJklNlN6QoJ2sne5lGq0yNI86gar0IfyGIbzreRlOzBO0OLlkTXvQemhN+2gjTlUZwYRwmdgArIH8PhZsNIiwISRarLru1SueSc+kWKKzUTGgAWMt69CYrPNSV8syuTA293cCgNoXX989hZFf8K5IX9xmHUkQO1h7l07kwYHwx/+joEesO7Kd6G/5Bho1Fk+O3uo9EvziovNAy3eus4HJAO3J1VQAYMCKwCzhsCkS2g8z5E6cRAqN5jJEq9veDk9xviup1/ryMCi/S1RUZYS9GpeafgBEZ03qGqRzBNFUTpNeDYciTl4sRZilGuMiA=
-key: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCctycsJTQ3gkphS5CGRBXGzKG/M7RdHWBdYgTY/AyH84CQX6W6oU92sVJ/watzs7Nb7vqeugiKtPkJRrYV/bftiXCX+ovMm62LPdf89w919ptGQJYjDwe+jrc/Kf319rv/sVus2a6taGPDuPrkX+91gYDPk3WffhDeQGNs98yIkZDpMOaJn3iBS3CIQJXG7HG7geltwA0TsIHkXvWY/wzmS84dgEFkhJFq10zzReb/BpK8lnNqW6/CdoD+E8O1iWJZR2PPE1SOth43vyvreIkTUv6RBa9JvZyKNX7I+KGORFZicI2bRvfV+hG0X/3Vo/7Ew0zKu0wUElWcLqK9kMErhdJXr4mfre7SUDT1HPm3xye2y5CZWZ2GdoBfrH4T3x8ks0RLo74cdj8sk4wKxg87Y0yMNjzpcSoVzWqFOWF91sUBReTyyvWLl6ZkqrbTUYmfQdQyvJFswkOWgYGzxiS/Us7Sg6LKPAIOQ78BxP1Q7DqguPXVI5f13IePOr0bI6E= win 10@DESKTOP-962EV46
+  - echo failed
+  - echo $TRAVIS_TEST_RESULT
