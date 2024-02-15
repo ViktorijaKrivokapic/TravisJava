@@ -1,26 +1,25 @@
 os: linux
+
 vm:
-  size:
-  - large
+  size: [large]
 language: java
 services:
-- postgresql
+  - docker
 cache: bundler
 dist: bionic
+
+
 install: skip
-before_install: openssl aes-256-cbc -K $encrypted_6330fb5ca1fb_key -iv $encrypted_6330fb5ca1fb_iv
-  -in secret.json.enc -out secret.json -d
+
 jobs:
-  SECRET_KEY: sifra###
+  secret_key: sifra!@#
   include:
-  - name: failing
-    script: true
+    - name: failing
+      script: true
+
 after_success:
-- echo done
-- echo $TRAVIS_TEST_RESULT
+  - echo done
+  - echo $TRAVIS_TEST_RESULT
 after_failure:
-- echo failed
-- echo $TRAVIS_TEST_RESULT
-env:
-  global:
-    secure: AdgGBinhLkms9QrOMznm0h1XqI/gndcfZBuuD1bUvItuewlkYBVCWsH3zB5ciUe24jrNBCl/rh6goV4qOCRIXTT+SCJIyyEJQ1cT53MLtqmwTZ5WkPOf0GjujAtJ4RUwBQB6pHpKHo2QO1t+hiR7/+uNM1hS0cXKrbpzH45MLskwdoMQKk6/2lEcEuiul9hPhw4Ca5buEq7rhGjJsUlnnMBddfEXsQ1P3485NdWgIrxrZRuEW4oN883z4iFgvTaw8LpJqNtby8Gddn0xtmeMsAOcum9dXuIKBqmTbKxBfwt9QGCUfYFEdC92DsBCwmdzwYDmDJrIG/v6f+rhlNH36ni1SC7tL5cVumEJpz3E0+TDZv19yx0uWY/++hOc7/Yn9/+Nb9frNeNr0Lj8Fvi0E0eVbUFGximWjcL8OB5lubo65piWFc3J/0qjGX7vdxy54SMp1LiNWw0EqvwuHJ2g0BdCIAQLWWvAHkggILNHjPVpA7jdtHzMMJFLzTqXx83KfPUvb7pMKii6F+F4c8F2e5jp99kYhGqIgYoOtA/aSOJSxGmQskzb2Cq/wbGSCGYY5nHr09qpnMgiBy/4aGM3ZS0id6FZFn3iNJUxHnYw4sMxfW8skH9PYlFvSW7aTsXcrl6+bpXbUko1xvfpgoboBCPsbFGhw8azBSk6n5mBAiE=
+  - echo failed
+  - echo $TRAVIS_TEST_RESULT
