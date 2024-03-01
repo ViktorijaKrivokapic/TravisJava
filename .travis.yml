@@ -4,7 +4,7 @@ vm:
   size: [large]
 language: java
 services:
-  - postgresql
+  - docker
 cache: bundler
 dist: bionic
 
@@ -13,17 +13,12 @@ install: skip
 
 jobs:
   include:
-    - name: failing
-      script: true
-rvm:
-- 2.5
-- 2.2
-gemfile:
-- gemfiles/Gemfile.rails-3.2.x
-- gemfiles/Gemfile.rails-3.0.x
-env:
-- ISOLATED=true
-- ISOLATED=false
+  - rvm: 2.5
+    gemfile: gemfiles/Gemfile.rails-3.2.x
+    env: ISOLATED=false
+  - rvm: 2.2
+    gemfile: gemfiles/Gemfile.rails-3.0.x
+    env: ISOLATED=true
 
 after_success:
   - echo done
