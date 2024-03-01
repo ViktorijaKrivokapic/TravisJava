@@ -6,12 +6,11 @@ language: java
 services:
   - docker
 cache: bundler
-dist: bionic
-before_install:
-  - sudo apt-get -y install libxml2-dev
-addons:
-  apt:
-    update: true
+dist: xenial
+ addons:
+     snaps:
+       - hugo
+
 install: skip
 
 jobs:
