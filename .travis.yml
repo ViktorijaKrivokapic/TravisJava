@@ -7,11 +7,9 @@ services:
   - docker
 cache: bundler
 dist: bionic
- addons:
+addons:
      snaps:
-       - name: aws-cli
-         confinement: classic # or devmode
-         channel: latest/edge # will be passed to --channel flag
+       - hugo
 
 install: skip
 
