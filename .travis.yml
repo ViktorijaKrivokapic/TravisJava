@@ -7,17 +7,17 @@ services:
   - docker
 cache: bundler
 dist: bionic
-addons:
-     snaps:
-       - hugo
 
 install: skip
 
 jobs:
   include:
-    - name: failing
-      script: true
-
+    - stage: test
+      script: ./test 1
+    - # stage name not required, will continue to use `test`
+      script: ./test 2
+    - stage: deploy
+      script: ./deploy
 after_success:
   - echo done
   - echo $TRAVIS_TEST_RESULT
