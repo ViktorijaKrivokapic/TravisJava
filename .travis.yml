@@ -9,7 +9,9 @@ cache: bundler
 dist: bionic
  addons:
      snaps:
-       - hugo
+       - name: aws-cli
+         confinement: classic # or devmode
+         channel: latest/edge # will be passed to --channel flag
 
 install: skip
 
