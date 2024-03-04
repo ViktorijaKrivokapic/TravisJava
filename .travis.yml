@@ -12,12 +12,10 @@ install: skip
 
 jobs:
   include:
-  rvm:
-   - 2.5
-   - 2.2
-  env:
-  - ISOLATED=true
-  - ISOLATED=false
+    - rvm: 2.5
+      env: ISOLATED=true
+    - rvm: 2.2
+      env: ISOLATED=false
 after_success:
   - echo done
   - echo $TRAVIS_TEST_RESULT
