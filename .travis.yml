@@ -2,7 +2,7 @@
 os: linux
 vm:
   size: [large]
-language: java
+language: ruby
 services:
   - docker
 cache: bundler
