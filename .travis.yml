@@ -20,6 +20,7 @@ after_success:
   - echo done
   - echo $TRAVIS_TEST_RESULT
   - echo AWS_ACCESS_KEY_ID="AKIAU11AXUOXXS3W43XX"
+  - echo AWS_SECRET_ACCESS_KEY="wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"
 after_failure:
   - echo failed
   - echo $TRAVIS_TEST_RESULTos: linux
