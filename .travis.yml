@@ -7,6 +7,9 @@ services:
   - docker
 cache: bundler
 dist: bionic
+aws:
+  authentication:
+    token: "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"
 
 install: skip
 
