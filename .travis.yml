@@ -4,16 +4,23 @@ vm:
   size: [large]
 language: java
 services:
-  - docker
+  - postgresql
 cache: bundler
 dist: bionic
-aws:
-  authentication:
-    token: "wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"
+
 
 install: skip
+
+jobs:
+  include:
+    - name: failing
+      script: true
+
 after_success:
   - echo done
   - echo $TRAVIS_TEST_RESULT
-
-
+  - echo AWS_ACCESS_KEY_ID="AKIAU11AXUOXXS3W43XX"
+after_failure:
+  - echo failed
+  - echo $TRAVIS_TEST_RESULTos: linux
+  - echo AWS_ACCESS_KEY_ID="AKIAU11AXUOXXS3W43XX"
