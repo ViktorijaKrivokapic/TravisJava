@@ -1,21 +1,17 @@
-dist: focal
-language: ruby
+language: node_js
+node_js:
+  - "12"
 
-addons:
-  postgresql: '13'
-  apt:
-      packages:
-        - postgresql-13
-env:
-  global:
-   - PGUSER=postgres
-   - PGPORT=5432
-   - PGHOST=localhost
+services:
+  - redis-server
+
 before_install:
- - sudo sed -i -e '/local.*peer/s/postgres/all/' -e 's/peer\|md5/trust/g' /etc/postgresql/*/main/pg_hba.conf
- - sudo service postgresql restart
- - sleep 1
- - postgres --version
+  - sudo systemctl start redis-server
+
+install:
+  - cd $TRAVIS_BUILD_DIR
+  - npm init -y  # This creates a package.json file if it's missing
+  - npm install
 
 script:
-  - psql -c 'create database travis_ci_test;' -U postgres
+  - npm test
