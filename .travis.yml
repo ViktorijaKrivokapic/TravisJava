@@ -1,13 +1,18 @@
 os: linux
 
 vm:
-  size: [large]
+  size: large
+
 language: java
 services:
   - docker
-cache: bundler
-dist: bionic
 
+# Correct caching for a Java project using Maven
+cache:
+  directories:
+    - $HOME/.m2
+
+dist: bionic
 
 install: skip
 
@@ -19,6 +24,8 @@ jobs:
 after_success:
   - echo done
   - echo $TRAVIS_TEST_RESULT
+
 after_failure:
   - echo failed
-  - echo $TRAVIS_TEST_RESULTos: linux
+  - echo $TRAVIS_TEST_RESULT
+
