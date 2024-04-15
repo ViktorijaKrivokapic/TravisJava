@@ -1,23 +1,24 @@
 os: linux
-dist: focal
-language: node_js
-node_js:
-  - 14 
+
+vm:
+  size: [large]
+language: java
+services:
+  - docker
+cache: bundler
+dist: bionic
+
+
+install: skip
 
 jobs:
   include:
-    - name: "Test Application" 
-      script:
-        - npm -v
-        - cd node
-        - npm install
-        - npm test 
+    - name: failing
+      script: true
 
-    - name: "Generate SBOM"
-      if: branch = main AND type = pull_request
-      script:
-        - cd node
-        - npm install # This might be redundant if you have already installed in the test job
-        - echo "Generate SBOM here" # Placeholder for SBOM generation command
-        - curl -sSfL https://raw.githubusercontent.com/anchore/syft/main/install.sh | sh -s -- -b /usr/local/bin
-        - syft packages dir:/node -o spdx-json > /test/sbom.json
+after_success:
+  - echo done
+  - echo $TRAVIS_TEST_RESULT
+after_failure:
+  - echo failed
+  - echo $TRAVIS_TEST_RESULTos: linux
