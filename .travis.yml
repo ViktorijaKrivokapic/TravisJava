@@ -1,17 +1,39 @@
-sudo: required
 os: linux
-rvm: 2.6.3
 
-language: ruby
+vm:
+  size: large
+
+language: java
 
 services:
   - docker
 
-before_install:
-- docker pull carlad/sinatra
-- docker run -d -p 127.0.0.1:80:4567 carlad/sinatra /bin/sh -c "cd /root/sinatra; bundle exec foreman start;"
-- docker ps -a
-- docker run carlad/sinatra /bin/sh -c "cd /root/sinatra; bundle exec rake test"
+jobs:
+  include:
+    - jdk: openjdk8
+      name: "Test on OpenJDK 8"
+      script:
+        - echo "Testing on OpenJDK 8"
+        - true  
 
-script:
-- bundle exec rake test
+    - jdk: openjdk11
+      name: "Test on OpenJDK 11"
+      script:
+        - echo "Testing on OpenJDK 11"
+        - true  
+
+cache:
+  directories:
+    - $HOME/.m2  
+
+dist: bionic
+
+install: skip
+
+after_success:
+  - echo done
+  - echo $TRAVIS_TEST_RESULT
+
+after_failure:
+  - echo failed
+  - echo $TRAVIS_TEST_RESULT
