@@ -4,31 +4,35 @@ vm:
   size: large
 
 language: java
-
 services:
   - docker
 
-jobs:
-  include:
-    - jdk: openjdk8
-      name: "Test on OpenJDK 8"
-      script:
-        - echo "Testing on OpenJDK 8"
-        - true  
-
-    - jdk: openjdk11
-      name: "Test on OpenJDK 11"
-      script:
-        - echo "Testing on OpenJDK 11"
-        - true  
-
 cache:
   directories:
-    - $HOME/.m2  
+    - $HOME/.m2  # Appropriate cache for Java instead of bundler
 
 dist: bionic
 
 install: skip
+
+stages:
+  - test
+  - deploy
+
+jobs:
+  include:
+    - stage: test
+      name: "Run Tests"
+      script:
+        - echo "Running tests..."
+        - true  # Placeholder for actual test commands
+
+    - stage: deploy
+      name: "Deploy Application"
+      if: branch = main AND type = push  # Ensures deployment runs only on push to main branch
+      script:
+        - echo "Deploying application..."
+        - true  # Placeholder for deployment commands
 
 after_success:
   - echo done
