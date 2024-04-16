@@ -4,7 +4,7 @@ vm:
   size: [large]
 language: java
 services:
-  - redis-server
+  - docker
 cache: bundler
 dist: bionic
 
