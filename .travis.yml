@@ -1,18 +1,18 @@
 os: linux
 dist: focal
-language: ruby
+language: python
 jobs:
 include:
 
 name: “test” # existing functionality
 script: # existing functionality
 
-ruby --version
+python --version
 name: “sbom”
 script: # existing functionality
 
-cd ruby
-bundle install
+cd python
+pip install -r requirements.txt
 addons:
 sbom:
 on:
@@ -23,6 +23,6 @@ condition: false
 run_phase: "after_success" #
 output_format: "spdx-json" #
 output_dir: "/test" #
-input_dir: "/ruby" #
+input_dir: "/python" #
 User has created a single container with  SBOM Tooling  installed
 
