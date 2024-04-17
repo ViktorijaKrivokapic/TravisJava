@@ -1,24 +1,28 @@
 os: linux
-
-vm:
-  size: [large]
-language: java
-services:
-  - docker
-cache: bundler
-dist: bionic
-
-
-install: skip
-
+dist: focal
+language: ruby
 jobs:
-  include:
-    - name: failing
-      script: true
+include:
 
-after_success:
-  - echo done
-  - echo $TRAVIS_TEST_RESULT
-after_failure:
-  - echo failed
-  - echo $TRAVIS_TEST_RESULTos: linux
+name: “test” # existing functionality
+script: # existing functionality
+
+ruby --version
+name: “sbom”
+script: # existing functionality
+
+cd ruby
+bundle install
+addons:
+sbom:
+on:
+branch: 'main'
+pr: true
+
+condition: false
+run_phase: "after_success" #
+output_format: "spdx-json" #
+output_dir: "/test" #
+input_dir: "/ruby" #
+User has created a single container with  SBOM Tooling  installed
+
