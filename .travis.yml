@@ -1,26 +1,30 @@
 os: linux
 dist: focal
-language: node_js
+language: ruby
 jobs:
-  include:
-    - name: "test" # Existing functionality
-      script: 
-        - npm -v  # Corrected indentation and added the command to check npm version
+include:
 
-    - name: "sbom"
-      script:
-        - cd node && npm install  # Corrected indentation and added the command to install npm dependencies
-      addons:
-        sbom:
-          on:
-            branch: 'main'
-            pr: true
-          condition: true
-          run_phase: "after_failure"
-          output_format: "spdx-json"
-          output_dir: "/test"
-          input_dir: "/node"
+name: “test” # existing functionality
+script: # existing functionality
 
+ruby --version
+name: “sbom”
+script: # existing functionality
+
+cd ruby
+bundle install
+addons:
+sbom:
+on:
+branch: 'main'
+pr: true
+
+condition: false
+run_phase: "after_success" #
+output_format: "spdx-json" #
+output_dir: "/test" #
+input_dir: "/ruby" #
+User has created a single container with  SBOM Tooling  installed
 
 
 
