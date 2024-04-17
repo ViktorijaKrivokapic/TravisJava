@@ -1,28 +1,30 @@
 os: linux
-dist: focal
-language: python
-jobs:
-include:
 
-name: “test” # existing functionality
-script: # existing functionality
+vm:
+  size: [large]
+language: java
+services:
+  - docker
+cache: bundler
+dist: bionic
 
-python --version
-name: “sbom”
-script: # existing functionality
 
-cd python
-pip install -r requirements.txt
-addons:
-sbom:
-on:
-branch: 'main'
-pr: true
+install: skip
 
-condition: false
-run_phase: "after_success" #
-output_format: "spdx-json" #
-output_dir: "/test" #
-input_dir: "/python" #
-User has created a single container with  SBOM Tooling  installed
+jobs:                             
+  include:                        
+    - os: linux
+      dist: focal
+      name: "SBOM generation example job"
+      addons:
+         sbom                    # new node
+         <other existing addons>
+
+after_success:
+  - echo done
+  - echo $TRAVIS_TEST_RESULT
+after_failure:
+  - echo failed
+  - echo $TRAVIS_TEST_RESULTos: linux
+
 
