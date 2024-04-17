@@ -1,21 +1,27 @@
 os: linux
-dist: focal  # Changed from bionic to focal for compatibility with the SBOM addon
-language: python  # Changed from java to python
+
+vm:
+  size: [large]
+language: java
 services:
   - docker
 cache: bundler
+dist: bionic
+
+
+install: skip
+
 jobs:
   include:
-    - name: "SBOM generation example job"
-      addons:
-        sbom: true  # Added to enable SBOM generation
-      before_install:
-        - pip install -r requirements.txt  # Install Python dependencies if needed
-      script:
-        - python generate_sbom.py  # Replace this with the command to generate your SBOM
+    - name: failing
+      script: true
+
 after_success:
   - echo done
   - echo $TRAVIS_TEST_RESULT
+after_failure:
+  - echo failed
+  - echo $TRAVIS_TEST_RESULTos: linux
 
 
 
