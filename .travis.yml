@@ -1,21 +1,24 @@
-sudo: required
 os: linux
-rvm: 2.6.3
-
-language: ruby
-
+dist: bionic
+language: java
 services:
-  - docker
+  - docker  # Adding Docker service
+cache: bundler
 
-before_install:
-- docker pull carlad/sinatra
-- docker run -d -p 127.0.0.1:80:4567 carlad/sinatra /bin/sh -c "cd /root/sinatra; bundle exec foreman start;"
-- docker ps -a
-- docker run carlad/sinatra /bin/sh -c "cd /root/sinatra; bundle exec rake test"
+install: skip
 
-script:
-- bundle exec rake test
+jobs:
+  include:
+    - name: failing
+      script: true
 
+after_success:
+  - echo done
+  - echo $TRAVIS_TEST_RESULT
+
+after_failure:
+  - echo failed
+  - echo $TRAVIS_TEST_RESULTos: linux
 
 
 
