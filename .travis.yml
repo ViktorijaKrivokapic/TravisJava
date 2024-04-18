@@ -1,7 +1,7 @@
 os: linux
 
 vm:
-  size: [gpu-medium | gpu-large | gpu-xlarge]
+  size: [large]
 language: java
 services:
   - docker
