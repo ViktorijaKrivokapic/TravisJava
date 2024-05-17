@@ -1,20 +1,24 @@
 os: linux
-dist: jammy
-group: dev
-language: shell
-script:
-  - echo $TRAVIS_BRANCH
-  - echo $TRAVIS_TAG
-  - echo $TRAVIS_EVENT_TYPE
-deploy:
-  #  dpl_version: 1.10.16
-  provider: lambda
-  function_name: "lambda-test"
-  region: "us-east-1"
-  role: "arn:aws:iam::341288657826:role/lambda_basic_execution"
-  runtime: "nodejs18.x"
-  handler_name: "main"
-  edge:
-    branch: tbt_4_am
-  on:
-    branch: dpl_test
+
+vm:
+  size: [large]
+language: java
+services:
+  - docker
+cache: bundler
+dist: bionic
+
+
+install: skip
+
+jobs:
+  include:
+    - name: failing
+      script: true
+
+after_success:
+  - echo done
+  - echo $TRAVIS_TEST_RESULT
+after_failure:
+  - echo failed
+  - echo $TRAVIS_TEST_RESULT
