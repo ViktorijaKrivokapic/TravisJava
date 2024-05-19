@@ -3,19 +3,21 @@ dist: jammy
 group: dev
 language: shell
 script:
-  - echo $TRAVIS_BRANCH
-  - echo $TRAVIS_TAG
-  - echo $TRAVIS_EVENT_TYPE
+- echo $TRAVIS_BRANCH
+- echo $TRAVIS_TAG
+- echo $TRAVIS_EVENT_TYPE
 deploy:
-#  dpl_version: 1.10.16
   provider: lambda
-  function_name: "lambda-test"
-  region: "us-east-1"
-  role: "arn:aws:iam::341288657826:role/lambda_basic_execution"
-  runtime: "nodejs18.x"
-  handler_name: "main"
+  function_name: lambda-test
+  region: us-east-1
+  role: arn:aws:iam::341288657826:role/lambda_basic_execution
+  runtime: nodejs18.x
+  handler_name: main
   edge:
     branch: tbt_4_am
   on:
     branch: main
- 
+env:
+  global:
+  - secure: eqe/psClxaUSCO+ixExIsOHtaQNsFpoB66iQg4q3mmKEahzIUVF5PVD4UnsFLpLUHYdzHtL7RwrxTw+oVAR/bH6q6oAR0Xk8KPwX2ONQ0evr9AQT2cugM6jNAUrnTiUSperxnf+HEKdHCLiRTQqe/n5yHZczHWRfF8Zi6rfWxrRsQhtm/sr9Cria5RW8A7H4VyAAgu2gGyEiRk2lzgGanIQNeM3xpRaoSCqWlfcfcjHRuYYdphvZo1+t5Hs497gxQGArfHkoy293UYrRC7EQdjO36v5R+YmiAvBax1RxnUL58hZvNkagYQVkeuiKTBWAEigzXu1dO4h91kq6/24h2LCkHbE+ThmydbotLkylR8cA7Z1VjiiCKucr1GMmBHn19lyWguNnD/O3zlk/mHEVwj6Lq2clYoyAd+AnHMexTjTLsh8wwgcLE9rPDisuAjleZw1L8fSniJdUBcLmwcTsuSq/Ee1uoxCoEpT4gMiagmBS1RcjOn0LE7jCJLOyqFjHtAQ0A4LIbQvPK7D6JAKM6HAkX90z9qblXtjbd5a5q+fJs0O+Zf8J66VkPxbk8bLA9zT8eCEVAGc6zb16RF4HDphlc5xQt/VXia2AyFo2nzAhMFFDTw4vfVnYfCrytVr3DymRljBb9tUNPwiPvcBC5iQeVNbSXLfuhqZgBGDIDL4=
+  - secure: E6W/tLJ6Dp/yPaqQyswErV6sU9NSULg6tmU2iV5OFQ53VwVhrPPdCgBWKcA+mhYQEoyFsdWCRiHH4DTrbZOLW1k08YrfJ3tgXZ1gCNIrFiN9YMK2BgJPeubmcJlvQPyWO7R0lYJ9+srJgJe506tTIY1kwRDggaDqw6RkLyGUuPSuBgXqGKp6RPnvzhenvk71CIhwtcU+scyPWGUvtStzhLHVyr31DxNYxDNvOUGq0YUEBHMS/F19LQf9QnuX1kDU7jWhM1ODVDIYmwlNmjbsmdpLgglmnAVi0duEnWPP5dOci+f5P4KHpUCPfqbma1u+vH8Ozs73Jlox0rbPTLUnyKpDndIsDqVlFY+j6nyBPLdBzFJddletj6hGx92HiLYE64yhK76+o0iIC7MetpZcU5ONSpuvgz6m95Q31mL/mU2o1zARTZefFZuY9I/ap1OVBAQgpRrefqucolqkKl7IXvOIOZaRkdeCfTjUp/nYAmWJ7uOZ1mnkjlQE26fsHk3tjUrzH/W+V+qLvpVa27YLN2iTljBuMKvuB/09zqJpApdDPjBQsNeG7scB6z88UlsPIyGvWXlkw0MdidqGZY2goopv0g6u/y84n2ixKtXxSFLFbbInm5eUznVsrtzbsrHbnneJ1S0xrdhXeH3SdoAkgxw6sECJeNfh/kLRIYf/PR0=
