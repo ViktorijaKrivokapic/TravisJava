@@ -11,15 +11,15 @@ script:
   - echo $TRAVIS_BRANCH
   - echo $TRAVIS_TAG
   - echo $TRAVIS_EVENT_TYPE
-  - ruby -v  
+  - ruby -v
 
 deploy:
   provider: pages
-  skip_cleanup: true
-  github_token: $GITHUB_TOKEN  # Set in the settings page of your repository, as a secure variable
+  cleanup: false  # Replace skip_cleanup with cleanup and set it to false
+  token: $GITHUB_TOKEN  # Use token instead of github_token
   keep_history: true
   on:
     branch: main
-  dpl_version: 1.x  
-  
+  dpl_version: 1.x
+
 
