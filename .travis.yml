@@ -1,7 +1,7 @@
 os: linux
 dist: jammy
 group: dev
-language: shell
+language: ruby
 
 # Specify Ruby version
 rvm:
