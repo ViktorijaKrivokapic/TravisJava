@@ -1,7 +1,7 @@
 os: linux
 dist: jammy
 group: dev
-language: ruby
+language: shell
 
 # Specify Ruby version
 rvm:
@@ -15,7 +15,7 @@ script:
 
 deploy:
   provider: pages
-  cleanup: false  # Use cleanup instead of skip_cleanup
+  skip_cleanup: true
   token: $GITHUB_TOKEN  
   keep_history: true
   on:
