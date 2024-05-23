@@ -2,19 +2,25 @@ os: linux
 dist: jammy
 group: dev
 language: shell
+
+# Specify Ruby version
+rvm:
+  - 2.7.8
+
 script:
-- echo $TRAVIS_BRANCH
-- echo $TRAVIS_TAG
-- echo $TRAVIS_EVENT_TYPE
+  - echo $TRAVIS_BRANCH
+  - echo $TRAVIS_TAG
+  - echo $TRAVIS_EVENT_TYPE
+  - ruby -v  
+
 deploy:
   provider: lambda
-  function_name: lambda-test
-  region: us-east-1
-  role: arn:aws:iam::341288657826:role/lambda_basic_execution
-  runtime: nodejs18.x
-  handler_name: main
-  edge:
-    branch: tbt_4_am
+  function_name: "lambda-test"
+  region: "us-east-1"
+  role: "arn:aws:iam::341288657826:role/lambda_basic_execution"
+  runtime: "nodejs18.x"
+  handler_name: "main"
   on:
     branch: main
-  
+  dpl_version: 1.x  
+
