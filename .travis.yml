@@ -20,7 +20,7 @@ deploy:
   keep_history: true
   on:
     branch: main
-  dpl_version: 1.x  # Ensure dpl 1.x is used as the default
+  # dpl_version: 1.x  # Ensure dpl 1.x is used as the default
   
   
 
