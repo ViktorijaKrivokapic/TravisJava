@@ -2,28 +2,19 @@ os: linux
 dist: jammy
 group: dev
 language: ruby
-
-# Specify Ruby version
 rvm:
-  - 2.7.8
-
+- 2.7.8
 script:
-  - echo $TRAVIS_BRANCH
-  - echo $TRAVIS_TAG
-  - echo $TRAVIS_EVENT_TYPE
-  - echo $(travis_internal_ruby)
-  - ruby -v  # Print the Ruby version to confirm it is 2.7.8
-
+- echo $TRAVIS_BRANCH
+- echo $TRAVIS_TAG
+- echo $TRAVIS_EVENT_TYPE
+- echo $(travis_internal_ruby)
+- ruby -v
 deploy:
   provider: pages
   cleanup: false
-  token: $GITHUB_TOKEN  
+  token:
+    secure: TuOLpaHhCeH5oUZWw9f525SbaFdmLWXacc/9lqNSlVelHSg3ORNWeNIq6/g9rcxw85caUVsH+p6BFq5iXvAVBzAp4EAHgJbSTkcZPKvs/YKmdOJPC5VPhggtI1CP+z7HtgHIuFx6P2/Hts7V5dmW4kd6iejxIEQsBbhpZKJyqZTiHeO5EtjHqxYynl4mkfCCaq9LFHIwbjivV1zEfgQmNdqE1A4w2pSZSzYjkEOoo9IOMGgjz9yA3ASVdXSRClby3DU9s0f/OtUSxmYxbeSwaWjuiq+W7AsX4B1XewdmAKfMeYyKi/slc9iMmGFG+ha30WEmWHBbWoqn555UnvoJoonIo+QxjpbV+0/oNb7XuB/vT9aEF+pN93F4NVcJ1QfbyYznScSXIh0QhaSE85sdHRHKqwcXHyS+cFccqHUSqJjCQQsDkV7S90IfEM1rN8vMF4dgo2OcYGwaxc1lkrVLJvm9QDRe7gXf4ETjqWzB3l2tzTB6F06H+2lZDaL211gsl/EQ1McIn+0+m/fskjFGzK6wHJVAjD+LDw1CV4xAQ3ESzwPgXjvxU83/cRX/IYGJtoikgUkY044q4UPYKbj2nFJsWTaNQTv8KAy4XKpM1c7JBLBjw9DV760/WQntdr81TP/hxG4e30GPX+n/6xunYA5wPtYaHT0/F69d0f3HTpE=
   keep_history: true
   on:
     branch: main
-  # dpl_version: 1.x  # Ensure dpl 1.x is used as the default
-  
-  
-
-
-
