@@ -1,5 +1,6 @@
 os: linux
-dist: focal
+dist: jammy
+group: dev
 language: ruby
 
 # Specify Ruby version
