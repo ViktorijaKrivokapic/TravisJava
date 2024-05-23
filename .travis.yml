@@ -14,12 +14,10 @@ script:
   - ruby -v  
 
 deploy:
-  provider: lambda
-  function_name: "lambda-test"
-  region: "us-east-1"
-  role: "arn:aws:iam::341288657826:role/lambda_basic_execution"
-  runtime: "nodejs18.x"
-  handler_name: "main"
+  provider: pages
+  skip_cleanup: true
+  github_token: $GITHUB_TOKEN  # Set in the settings page of your repository, as a secure variable
+  keep_history: true
   on:
     branch: main
   dpl_version: 1.x  
