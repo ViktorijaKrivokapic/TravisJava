@@ -1,5 +1,5 @@
 os: linux
-dist: jammy
+dist: focal
 group: dev
 language: ruby
 
@@ -11,6 +11,7 @@ script:
   - echo $TRAVIS_BRANCH
   - echo $TRAVIS_TAG
   - echo $TRAVIS_EVENT_TYPE
+  - echo $(travis_internal_ruby)
   - ruby -v  # Print the Ruby version to confirm it is 2.7.8
 
 deploy:
