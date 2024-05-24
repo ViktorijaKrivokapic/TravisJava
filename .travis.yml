@@ -1,0 +1,21 @@
+os: linux
+dist: jammy
+group: dev
+language: ruby
+rvm:
+- 3.3
+
+script:
+  - echo $TRAVIS_BRANCH
+  - echo $TRAVIS_TAG
+  - echo $TRAVIS_EVENT_TYPE
+  - echo $(travis_internal_ruby)
+  - ruby -v
+deploy:
+  provider: pages
+  skip_cleanup: true
+  github_token: $GITHUB_TOKEN  # Set in the settings page of your repository, as a secure variable
+  keep_history: true
+  on:
+    branch: main  
+    
