@@ -1,20 +1,24 @@
 os: linux
-dist: jammy
-group: dev
-language: ruby
-rvm:
-- 2.7.8
-script:
-- echo $TRAVIS_BRANCH
-- echo $TRAVIS_TAG
-- echo $TRAVIS_EVENT_TYPE
-- echo $(travis_internal_ruby)
-- ruby -v
-deploy:
-  provider: pages
-  cleanup: false
-  keep_history: true
-  on:
-    branch: main
-  token:
-    secure: pdl0zMYjF6KgQA9gagpMMwnYh3wi8WBRiIZLZJAgHALTKeRTntUI5RhLVci7K7ynVNUjqPH/gnEXvTK6Y1dT+9XSzg/7dXPEdDN1L6YxQfK0pldLj6a512ekU10Fj2cNjwEhcHf1W65hAXZRLv196WGnIdjdZaj8ZC4lgGQr7ZyhasjMvahkBeHqTv0wixXDCLCnY4Kgsx05vRdD9OlVBkGV1NIwPR1JcMsz28/568s4D/6R2LpA/r/BgkDYQkUYrMFfiT737O378m24uKpooUrcJXr3TcqH1DP/tKj8/s/5x7La3vFyIMgQ93Vc+aaKWM9gk1OFEAb+NAzRZW0T+/K3o3ltbsgytJnVKuhOs5MT7ee6FPlkuvsf8bwul0h+PxNWCPMbPVSEd6atf7zlfOnw706VoZvYxImQo0NCHMLbpUYpH9ZbOhNtX8UjjekyvoAEWU6oEng+7g/QVFsMhqyi8s2heOC3CkaxJAEzPcL7Fq8T9A5r8NylV42EqW1SO383aBYWHKTT7ajWDj95rUJogzlXBzfUkUZH7+Ody9iAba9mcpgsKaGZfqYcurmBupgKTZTu+OFaEUwJXjxnXc4I7GIMJqK9UklhEjITx++PJ3xDt2p3JoH7+m3P76h4ZakvxgOG3cT4VJ8KJLopL2KvFtjYVt56vQ4IPy+dSIU=
+
+vm:
+  size: [large]
+language: java
+services:
+  - docker
+cache: bundler
+dist: bionic
+
+
+install: skip
+
+jobs:
+  include:
+    - name: failing
+      script: true
+
+after_success:
+  - echo done
+  - echo $TRAVIS_TEST_RESULT
+after_failure:
+  - echo failed
+  - echo $TRAVIS_TEST_RESULT
