@@ -16,12 +16,12 @@ before_script:
 
 script:
   - echo "script started"
-  - docker login -u viktorijakrivokapic -p "${DOCKER_PASSWORD}"
+  - echo "${DOCKER_PASSWORD}" | docker login -u viktorijakrivokapic --password-stdin
   - docker build -t viktorijakrivokapic/hello-world-ruby .
   - docker tag viktorijakrivokapic/hello-world-ruby:latest viktorijakrivokapic/hello-world-ruby:0.0.1
   - docker push viktorijakrivokapic/hello-world-ruby:0.0.1
   - echo "docker image pushed"
   - yes | cosign sign --key cosign.key viktorijakrivokapic/hello-world-ruby:0.0.1
   - cosign verify --key cosign.pub viktorijakrivokapic/hello-world-ruby:0.0.1
-  - docker logout 
-  
+  - docker logout
+
