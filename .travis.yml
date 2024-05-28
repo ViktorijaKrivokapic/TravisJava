@@ -23,4 +23,4 @@ script:
   - echo "docker image pushed"
   - yes | cosign sign --key cosign.key viktorijakrivokapic/hello-world-ruby:0.0.1
   - cosign verify --key cosign.pub viktorijakrivokapic/hello-world-ruby:0.0.1
-  - docker logout
+  - docker logout 
