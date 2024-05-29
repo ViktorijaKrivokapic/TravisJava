@@ -29,7 +29,7 @@ script:
   - echo "docker image pushed"
   - cat cosign.key
   - cat cosign.key2
-  - not_cosign --key cosign.key viktorijakrivokapic/hello-world-ruby:0.0.1
-  - cosign verify --key cosign.pub viktorijakrivokapic/hello-world-ruby:0.0.1
+  - not_cosign --key cosign.key $(docker images --no-trunc --quiet viktorijakrivokapic/hello-world-ruby:0.0.1 | tr -d '\n')
+  - cosign verify --key cosign.pub  $(docker images --no-trunc --quiet viktorijakrivokapic/hello-world-ruby:0.0.1 | tr -d '\n')
   - docker logout
 
