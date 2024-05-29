@@ -29,9 +29,9 @@ script:
   - docker push viktorijakrivokapic/hello-world-ruby:0.0.1
   - echo "docker image pushed"
   - cat cosign.key
-  - not_cosign sign --key cosign.key viktorijakrivokapic/hello-world-ruby:0.0.1
-  - not_cosign sign --key cosign.key $(docker images --no-trunc --quiet viktorijakrivokapic/hello-world-ruby:0.0.1 | tr -d '\n')
+  - not_cosign version
   - cosign sign --key cosign.key $(docker images --no-trunc --quiet viktorijakrivokapic/hello-world-ruby:0.0.1 | tr -d '\n')
+  - not_cosign sign --key cosign.key $(docker images --no-trunc --quiet viktorijakrivokapic/hello-world-ruby:0.0.1 | tr -d '\n')
   - cosign verify --key cosign.pub  viktorijakrivokapic/hello-world-ruby:0.0.1
   - docker logout
 
