@@ -9,11 +9,17 @@ services:
   - docker
 
 keys:
-  - VIKI_KEY # must match the key identifier set in the UI
+  - KEYKEY # must match the key identifier set in the UI
+  - KEY # must match the key identifier set in the UI
+
 
 before_script:
-  - travis_key VIKI_KEY cosign.key
-
+  - echo $TRAVIS_KEYKEY > x1
+  - echo $TRAVIS_KEY > x2
+  - travis_key KEYKEY cosign.key
+  - travis_key KEY cosign.key2
+  - cat x1 |hd
+  - cat x2 |hd
 script:
   - echo "script started"
   - echo "${DOCKER_PASSWORD}" | docker login -u viktorijakrivokapic --password-stdin
@@ -22,6 +28,8 @@ script:
   - docker push viktorijakrivokapic/hello-world-ruby:0.0.1
   - echo "docker image pushed"
   - cat cosign.key
+  - cat cosign.key2
   - yes | cosign sign --key cosign.key viktorijakrivokapic/hello-world-ruby:0.0.1
   - cosign verify --key cosign.pub viktorijakrivokapic/hello-world-ruby:0.0.1
   - docker logout
+
