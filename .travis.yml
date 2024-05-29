@@ -23,15 +23,15 @@ before_script:
   - cat x2 |hd
 script:
   - echo "script started"
+  - echo $XDG_RUNTIME_DIR
   - echo "${DOCKER_PASSWORD}" | docker login -u viktorijakrivokapic --password-stdin
   - docker build -t viktorijakrivokapic/hello-world-ruby .
   - docker tag viktorijakrivokapic/hello-world-ruby:latest viktorijakrivokapic/hello-world-ruby:0.0.1
   - docker push viktorijakrivokapic/hello-world-ruby:0.0.1
   - echo "docker image pushed"
-  - cat cosign.key
+  - cat ~/.docker/config.json
   - not_cosign version
   - cosign sign --key cosign.key $(docker images --no-trunc --quiet viktorijakrivokapic/hello-world-ruby:0.0.1 | tr -d '\n')
-  - not_cosign sign --key cosign.key $(docker images --no-trunc --quiet viktorijakrivokapic/hello-world-ruby:0.0.1 | tr -d '\n')
   - cosign verify --key cosign.pub  viktorijakrivokapic/hello-world-ruby:0.0.1
   - docker logout
 
