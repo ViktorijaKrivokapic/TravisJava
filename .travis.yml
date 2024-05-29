@@ -9,11 +9,14 @@ services:
   - docker
 
 keys:
-  - VIKI_KEY # must match the key identifier set in the UI
+  - KEYKEY # must match the key identifier set in the UI
+  - KEY # must match the key identifier set in the UI
+
 
 before_script:
-  - echo $TRAVIS_VIKI_KEY
-  - travis_key VIKI_KEY cosign.key
+  - echo $TRAVIS_KEYKEY
+  - echo $TRAVIS_KEY
+  - travis_key KEYKEY cosign.key
 
 script:
   - echo "script started"
