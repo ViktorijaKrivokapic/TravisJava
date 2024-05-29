@@ -24,6 +24,7 @@ before_script:
 script:
   - echo "script started"
   - echo $XDG_RUNTIME_DIR
+  - cat ${XDG_RUNTIME_DIR}/containers/auth.json
   - echo "${DOCKER_PASSWORD}" | docker login -u viktorijakrivokapic --password-stdin
   - docker build -t viktorijakrivokapic/hello-world-ruby .
   - docker tag viktorijakrivokapic/hello-world-ruby:latest viktorijakrivokapic/hello-world-ruby:0.0.1
