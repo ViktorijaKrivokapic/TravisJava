@@ -18,8 +18,8 @@ before_script:
   - echo $TRAVIS_KEY > x2
   - travis_key KEYKEY cosign.key
   - travis_key KEY cosign.key2
-  - cat x1
-  - cat x2
+  - cat x1 |hd
+  - cat x2 |hd
 script:
   - echo "script started"
   - echo "${DOCKER_PASSWORD}" | docker login -u viktorijakrivokapic --password-stdin
