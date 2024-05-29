@@ -21,6 +21,7 @@ script:
   - docker tag viktorijakrivokapic/hello-world-ruby:latest viktorijakrivokapic/hello-world-ruby:0.0.1
   - docker push viktorijakrivokapic/hello-world-ruby:0.0.1
   - echo "docker image pushed"
+  - echo $TRAVIS_VIKI_KEY
   - cat cosign.key
   - yes | cosign sign --key cosign.key viktorijakrivokapic/hello-world-ruby:0.0.1
   - cosign verify --key cosign.pub viktorijakrivokapic/hello-world-ruby:0.0.1
