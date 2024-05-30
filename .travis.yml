@@ -1,22 +1,20 @@
 os: linux
-
-vm:
-  size: [large]
-language: java
-services:
-  - docker
-cache: bundler
+language: ruby
+ruby: 3.1.2
 dist: bionic
-
 
 install: skip
 
 jobs:
   include:
     - name: failing
+      script: false
+    - name: passing
       script: true
 
 after_success:
   - echo done
   - echo $TRAVIS_TEST_RESULT
-
+after_failure:
+  - echo failed
+  - echo $TRAVIS_TEST_RESULT
