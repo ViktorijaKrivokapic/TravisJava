@@ -23,7 +23,7 @@ script:
   - docker push viktorijakrivokapic/hello-world-ruby:0.0.1
   - echo "docker image pushed"
   - not_cosign version
-  - cosign sign --key cosign.key viktorijakrivokapic/hello-world-ruby:0.0.1
+  - echo y | cosign sign --key cosign.key viktorijakrivokapic/hello-world-ruby:0.0.1
   - cosign verify --key cosign.pub  viktorijakrivokapic/hello-world-ruby:0.0.1
   - docker logout
 
