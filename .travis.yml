@@ -1,20 +1,28 @@
 os: linux
+dist: focal
+group: dev
 language: ruby
-ruby: 3.1.2
-dist: bionic
 
-install: skip
+env:
+  - COSIGN_EXPERIMENTAL=1
 
-jobs:
-  include:
-    - name: failing
-      script: false
-    - name: passing
-      script: true
+services:
+  - docker
 
-after_success:
-  - echo done
-  - echo $TRAVIS_TEST_RESULT
-after_failure:
-  - echo failed
-  - echo $TRAVIS_TEST_RESULT
+keys:
+  - KEYKEY # must match the key identifier set in the UI
+
+before_script:
+  - echo $TRAVIS_KEYKEY > x1
+  - travis_key KEYKEY cosign.key
+script:
+  - echo "script started"
+  - echo "${DOCKER_PASSWORD}" | docker login -u viktorijakrivokapic --password-stdin
+  - docker build -t viktorijakrivokapic/hello-world-ruby .
+  - docker tag viktorijakrivokapic/hello-world-ruby:latest viktorijakrivokapic/hello-world-ruby:0.0.1
+  - docker push viktorijakrivokapic/hello-world-ruby:0.0.1
+  - echo "docker image pushed"
+  - not_cosign version
+  - echo y | cosign sign --key cosign.key viktorijakrivokapic/hello-world-ruby:0.0.1
+  - cosign verify --key cosign.pub  viktorijakrivokapic/hello-world-ruby:0.0.1
+  - docker logout
