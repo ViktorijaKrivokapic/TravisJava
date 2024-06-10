@@ -10,11 +10,11 @@ services:
   - docker
 
 keys:
-  - KEYKEY # must match the key identifier set in the UI
+  - VIKI_KEY # must match the key identifier set in the UI
 
 before_script:
-  - echo $TRAVIS_KEYKEY > x1
-  - travis_key KEYKEY cosign.key
+  - echo $TRAVIS_VIKI_KEY > x1
+  - travis_key VIKI_KEY cosign.key
 script:
   - echo "script started"
   - echo "${DOCKER_PASSWORD}" | docker login -u viktorijakrivokapic --password-stdin
