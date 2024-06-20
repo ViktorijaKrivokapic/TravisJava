@@ -1,29 +1,17 @@
 os: linux
-dist: focal
-group: dev
-language: ruby
 
-env:
-  - COSIGN_EXPERIMENTAL=1
-
+vm:
+  size: [large]
+language: java
 services:
   - docker
+cache: bundler
+dist: bionic
 
-keys:
-  - VIKI_KEY # must match the key identifier set in the UI
 
-before_script:
-  - echo $TRAVIS_VIKI_KEY > x1
-  - travis_key VIKI_KEY cosign.key
+install: skip
 script:
-  - echo "script started"
-  - echo "${DOCKER_PASSWORD}" | docker login -u viktorijakrivokapic --password-stdin
-  - docker build -t viktorijakrivokapic/hello-world-ruby .
-  - docker tag viktorijakrivokapic/hello-world-ruby:latest viktorijakrivokapic/hello-world-ruby:0.0.1
-  - docker push viktorijakrivokapic/hello-world-ruby:0.0.1
-  - echo "docker image pushed"
-  - not_cosign version
-  - echo y | cosign sign --key cosign.key viktorijakrivokapic/hello-world-ruby:0.0.1
-  - cosign verify --key cosign.pub  viktorijakrivokapic/hello-world-ruby:0.0.1
-  - docker logout
-  
+  - echo $TRAVIS_PULL_REQUEST_IS_DRAFT
+  - if [ "$TRAVIS_PULL_REQUEST_IS_DRAFT" = "true" ]; then echo "This is a draft PR"; fi
+
+
