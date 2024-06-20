@@ -10,8 +10,13 @@ dist: bionic
 
 
 install: skip
-script:
-  - echo $TRAVIS_PULL_REQUEST_IS_DRAFT
-  - if [ "$TRAVIS_PULL_REQUEST_IS_DRAFT" = "true" ]; then echo "This is a draft PR"; fi
 
+jobs:
+  include:
+    - name: failing
+      script: true
+
+after_success:
+  - echo done
+  - echo $TRAVIS_TEST_RESULT
 
