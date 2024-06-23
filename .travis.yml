@@ -1,24 +1,27 @@
 os: linux
-
-vm:
-  size: [large]
 language: java
 services:
   - docker
 cache: bundler
 dist: bionic
 
-
-install: skip
+stages:
+  - test
+  - deploy
 
 jobs:
   include:
-    - name: failing
+    - stage: test
+      name: "Run failing tests"
       script: true
+
+    - stage: deploy
+      name: "Deploy to production"
+      script: echo "Deploying..."
 
 after_success:
   - echo done
-  - echo $TRAVIS_TEST_RESULT
+  - echo $TRAVIS_TEST_RESULT    
 
 
 
