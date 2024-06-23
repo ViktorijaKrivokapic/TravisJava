@@ -1,39 +1,23 @@
 os: linux
-
 vm:
-  size: [large]
+  size:
+  - large
 language: java
 services:
-  - docker
+- docker
 cache: bundler
 dist: bionic
-
-
 install: skip
-
 jobs:
   include:
-    - name: failing
-      script: true
-
+  - name: failing
+    script: true
 after_success:
-  - echo done
-  - echo $TRAVIS_TEST_RESULT
+- echo done
+- echo $TRAVIS_TEST_RESULT
 after_failure:
-  - echo done
-  - echo $TRAVIS_TEST_RESULT 
-
-    
-  
-
- 
-
-
-
-
-
-
-
-  
-
-
+- echo done
+- echo $TRAVIS_TEST_RESULT
+env:
+  global:
+    secure: JBWEa8ggJekfiEKMLTeXpSK+EXgozAzUMQlfDECBTzFJ2y424i7IF6Lq+b4lZeT7x+fZYj96Pja4CovKE7WZJZ+d3SBkYwmvMu0rdrHRJn+VJnYIxPLJGsaRXXBELDSYWElFJTrWRLU0ENP3SfA3Q+AfL3tlQdniQsgLDQnmAX4bL3/ebpggkgNyLZDUoDuS+Z3wzRGcsJ6kdECdXCxwVw8HkkF0aWTubKyoIl4vtJu22Z5vWoSAHSqxC+IE3ASdtuAgSWckxQsuxPyqZf0E2X0jpaU/Fnj3AJl5sq1DTPWyopIIST+I2F/d2/fF3fKB6drmWpz6QUeI0G68ns6U69ge0RkKswyLWMuRFrLGs1pwn2N5Gi+DVehEAXaTnU0v2RjC7hoMpyZu/4bkqXN2vpbw7TYKj/yadNYjvAq7Ye/xeBfg3AbKmFA9WPQ6rTYVYq3jRTzCArCGnap7fTG6PZQJEYUG2IPqT3ImMdytQjgFHzGtTrN+EExVJED08GFc2UueVw1gOIeJUYCM29y4wZQPhF2CKy3NF9uW9TVojgCcW10i4I1aG053te1LmiKgdEKuc+aQ6f5OBcXeUv0m1aIv8LDaexvHBiJYF0Sywl69V9jZ+HdBEbGllFhmSbdAUvjVB3YhewTpiLw19TsfMXNgzLTnIPtAvpW2V0LEJxc=
