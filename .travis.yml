@@ -1,27 +1,24 @@
 os: linux
-language: java
-services:
-  - docker
-cache: bundler
 dist: bionic
 
-stages:
-  - test
-  - deploy
+language: java
+
+services:
+  - docker
+
+cache:
+  directories:
+    - $HOME/.m2
 
 jobs:
   include:
-    - stage: test
-      name: "Run failing tests"
+    - name: failing
       script: true
-
-    - stage: deploy
-      name: "Deploy to production"
-      script: echo "Deploying..."
 
 after_success:
   - echo done
-  - echo $TRAVIS_TEST_RESULT    
+  - echo $TRAVIS_TEST_RESULT
+
 
 
 
