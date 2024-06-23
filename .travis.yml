@@ -7,6 +7,8 @@ services:
 - docker
 cache: bundler
 dist: bionic
+before_install:
+  - openssl aes-256-cbc -K $encrypted_93b563627d54_key -iv $encrypted_93b563627d54_iv -in secret-file.txt.enc -out secret-file.txt -d
 install: skip
 jobs:
   include:
