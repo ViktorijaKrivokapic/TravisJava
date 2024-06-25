@@ -19,7 +19,7 @@ jobs:
       script: true
 
 after_success:
-  - echo done
+  
  
 
  
