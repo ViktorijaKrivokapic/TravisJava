@@ -8,13 +8,19 @@ services:
 cache: bundler
 dist: bionic
 
-
 install: skip
 
 jobs:
   include:
     - name: failing
-      script: true
+      script:
+        - echo "Starting sleep loop..."
+        - for i in {1..5}; do
+            echo "Iteration $i";
+            sleep 10;
+          done
+        - echo "Sleep loop completed."
+        - true
 
 after_success:
   - echo done
@@ -22,6 +28,7 @@ after_success:
 after_failure:
   - echo failed
   - echo $TRAVIS_TEST_RESULT
+
 
  
 
