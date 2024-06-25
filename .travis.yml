@@ -17,7 +17,7 @@ jobs:
     - name: failing
       script: true
 
-after_success:
+
  
  
 
