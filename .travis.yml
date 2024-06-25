@@ -17,7 +17,7 @@ jobs:
         - echo "Starting sleep loop..."
         - for i in {1..5}; do
             echo "Iteration $i";
-            sleep 10;
+            sleep 60;
           done
         - echo "Sleep loop completed."
         - true
