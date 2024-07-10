@@ -20,7 +20,7 @@ jobs:
             branch: 'main'
           run_phase: 'after_success'
           output_format: 'cyclonedx-json'
-          input_dir: '/sbom/python'
+          input_dir: './'
           output_dir: '/sbom/python'
       script: true
 
