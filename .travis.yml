@@ -1,38 +1,45 @@
 os: linux
+
 vm:
   size: large
-language: java
+
+language: node_js
+
+node_js:
+  - '14'  # Specify the Node.js version
+
 services:
   - docker
-cache: bundler
+
+cache:
+  directories:
+    - node_modules
+
 dist: bionic
 
-install: 
-  - pip install -r requirements.txt
-  - pip list
+addons:
+  sbom:
+    on:
+      branch: 'main'
+    run_phase: 'after_success'
+    output_format: 'cyclonedx-json'
+    input_dir: './'
+    output_dir: './sbom'
 
-jobs:
-  include:
-    - os: linux
-      dist: focal
-      addons:
-        sbom:
-          on:
-            branch: 'main'
-          run_phase: 'after_success'
-          output_format: 'cyclonedx-json'
-          input_dir: '.'
-          output_dir: '/sbom/python'
-      script: true
+install:
+  - npm install
+
+script:
+  - npm test
 
 after_success:
   - echo done
   - echo $TRAVIS_TEST_RESULT
+  - ls -l ./sbom
 
 after_failure:
   - echo failed
   - echo $TRAVIS_TEST_RESULT
-
 
 
  
