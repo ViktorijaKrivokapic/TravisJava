@@ -9,6 +9,7 @@ dist: bionic
 
 install: 
   - pip install -r requirements.txt
+  - pip list
 
 jobs:
   include:
