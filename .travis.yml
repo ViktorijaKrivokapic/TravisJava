@@ -1,24 +1,32 @@
 os: linux
-
 vm:
-  size: [large]
+  size: large
 language: java
 services:
   - docker
 cache: bundler
 dist: bionic
 
-
 install: skip
 
 jobs:
   include:
-    - name: failing
+    - os: linux
+      dist: focal
+      addons:
+        sbom:
+          on:
+            branch: 'main'
+          run_phase: 'after_success'
+          output_format: 'cyclonedx-json'
+          input_dir: '/sbom/python'
+          output_dir: '/sbom/python'
       script: true
 
 after_success:
   - echo done
   - echo $TRAVIS_TEST_RESULT
+
 after_failure:
   - echo failed
   - echo $TRAVIS_TEST_RESULT
