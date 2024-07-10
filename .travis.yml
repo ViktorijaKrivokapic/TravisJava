@@ -8,24 +8,18 @@ services:
 cache: bundler
 dist: bionic
 
-before_install:
-  - git clone --depth=50 --branch=main https://$GITHUB_TOKEN@github.com/ViktorijaKrivokapic/TravisJava.git ViktorijaKrivokapic/TravisJava
-
-install: skip
-
 jobs:
   include:
-    - name: failing
-      script: true
-
-after_success:
-  - echo done
-  - echo $TRAVIS_TEST_RESULT
-after_failure:
-  - echo done
-  - echo $TRAVIS_TEST_RESULT 
-
-    
+    - os: linux
+      dist: focal
+      addons:
+        sbom:                                          
+          on:
+            branch: 'main'                 
+          run_phase: 'after_success'                  
+          output_format: 'cyclonedx-json'              # SBOM file(s) output format
+          input_dir: '/sbom/ruby'                      # relative paths within build job environments, see below
+          output_dir: '/sbom/ruby'
   
 
  
