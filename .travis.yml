@@ -25,6 +25,7 @@ jobs:
 
 after_failure:
   - echo "SBOM generation failed"
+  - ls /test
 
 after_success:
   - echo "SBOM generation succeeded"
