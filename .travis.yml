@@ -1,34 +1,39 @@
 os: linux
-dist: focal
-language: node_js
+vm:
+  size: large
+language: java
+services:
+  - docker
+cache: bundler
+dist: bionic
+
+install:
+  - pip install -r requirements.txt
+  - pip list
 
 jobs:
   include:
-    - name: "test" # existing functionality
-      script: # existing functionality
-        - npm -v
-
-    - name: "sbom" # SBOM generation job
-      script: 
-        - cd node
-        - npm install
+    - os: linux
+      dist: focal
       addons:
         sbom:
           on:
             branch: 'main'
-            pr: true
-          condition: true
-          run_phase: "after_failure" # Run SBOM generation after a failure
-          output_format: "spdx-json" # Specify the SBOM output format
-          output_dir: "/test" # Specify the output directory for SBOM
-          input_dir: "/node" # Specify the input directory for SBOM
-
-after_failure:
-  - echo "SBOM generation failed"
-  - ls /test
+          run_phase: 'after_success'
+          output_format: 'cyclonedx-json'
+          input_dir: '.'
+          output_dir: '/sbom/python'
+      script: true
 
 after_success:
-  - echo "SBOM generation succeeded"
+  - echo done
+  - echo $TRAVIS_TEST_RESULT
+  - ls /test
+
+after_failure:
+  - echo failed
+  - echo $TRAVIS_TEST_RESULT
+  - ls /test
 
 
 
