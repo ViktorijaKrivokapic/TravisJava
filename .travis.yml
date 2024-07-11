@@ -1,27 +1,35 @@
 os: linux
 dist: focal
 language: python
+
 jobs:
-include:
+  include:
+    - name: "test" # existing functionality
+      script: # existing functionality
+        - python --version
 
-name: “test” # existing functionality
-script: # existing functionality
+    - name: "sbom"
+      script: 
+        - cd python
+        - pip install -r requirements.txt
+      addons:
+        sbom:
+          on:
+            branch: 'main'
+            pr: true
+          condition: false
+          run_phase: "after_success" 
+          output_format: "spdx-json" 
+          output_dir: "/test" 
+          input_dir: "/python"
 
-python --version
-name: “sbom”
-script: # existing functionality
+after_success:
+  - echo done
+  - echo $TRAVIS_TEST_RESULT
+  - ls /test
 
-cd python
-pip install -r requirements.txt
-addons:
-sbom:
-on:
-branch: 'main'
-pr: true
-
-condition: false
-run_phase: "after_success" 
-output_format: "spdx-json" 
-output_dir: "/test" 
-input_dir: "/python" 
+after_failure:
+  - echo failed
+  - echo $TRAVIS_TEST_RESULT
+  - ls /test
 
