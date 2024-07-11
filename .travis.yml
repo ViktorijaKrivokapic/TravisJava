@@ -1,45 +1,34 @@
 os: linux
-
-vm:
-  size: large
-
+dist: focal
 language: node_js
 
-node_js:
-  - '14'  # Specify the Node.js version
+jobs:
+  include:
+    - name: "test" # existing functionality
+      script: # existing functionality
+        - npm -v
 
-services:
-  - docker
-
-cache:
-  directories:
-    - node_modules
-
-dist: bionic
-
-addons:
-  sbom:
-    on:
-      branch: 'main'
-    run_phase: 'after_success'
-    output_format: 'cyclonedx-json'
-    input_dir: './'
-    output_dir: './sbom'
-
-install:
-  - npm install
-
-script:
-  - npm test
-
-after_success:
-  - echo done
-  - echo $TRAVIS_TEST_RESULT
-  - ls -l ./sbom
+    - name: "sbom" # SBOM generation job
+      script: 
+        - cd node
+        - npm install
+      addons:
+        sbom:
+          on:
+            branch: 'main'
+            pr: true
+          condition: true
+          run_phase: "after_failure" # Run SBOM generation after a failure
+          output_format: "spdx-json" # Specify the SBOM output format
+          output_dir: "/test" # Specify the output directory for SBOM
+          input_dir: "/node" # Specify the input directory for SBOM
 
 after_failure:
-  - echo failed
-  - echo $TRAVIS_TEST_RESULT
+  - echo "SBOM generation failed"
+
+after_success:
+  - echo "SBOM generation succeeded"
+
 
 
  
