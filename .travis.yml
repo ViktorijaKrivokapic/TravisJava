@@ -21,20 +21,24 @@ jobs:
         sbom:
           on:
             branch: 'main'
-          run_phase: 'after_success'
+          run_phase: 'script'
           output_format: 'cyclonedx-json'
           input_dir: '.'
           output_dir: '/sbom/python'
       script:
         - echo "Generating SBOM"
         - sudo mkdir -p /sbom/python # Ensure the output directory exists
+        - ls -la # List the contents of the current directory for debugging
+        - echo "Contents of the current directory"
+        - ls -la /sbom # List the contents of the /sbom directory for debugging
+        - echo "Contents of the /sbom directory"
 
 after_success:
   - echo done
   - echo $TRAVIS_TEST_RESULT
-  - ls /sbom/python
+  - ls -la /sbom/python # List the contents of the /sbom/python directory
 
 after_failure:
   - echo failed
   - echo $TRAVIS_TEST_RESULT
-  - ls /sbom/python
+  - ls -la /sbom/python # List the contents of the /sbom/python directory
