@@ -1,7 +1,7 @@
 os: linux
 vm:
   size: large
-language: java
+language: python
 services:
   - docker
 cache: bundler
