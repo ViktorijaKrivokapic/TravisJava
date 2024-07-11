@@ -28,9 +28,6 @@ jobs:
       script:
         - echo "Generating SBOM"
         - sudo mkdir -p /sbom/python # Ensure the output directory exists
-  before_install:
-    - rvm use $(travis_internal_ruby) --fuzzy do ruby -S gem uninstall -aIx dpl
-    - rvm use $(travis_internal_ruby) --fuzzy do ruby -S gem install dpl -v 2.0.3.beta.4
 
 after_success:
   - echo done
