@@ -24,3 +24,4 @@ run_phase: "after_success"
 output_format: "spdx-json" 
 output_dir: "/test" 
 input_dir: "/python" 
+
