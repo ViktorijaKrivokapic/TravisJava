@@ -14,12 +14,6 @@ install:
 
 jobs:
   include:
-    - name: "Run Tests"
-      os: linux
-      dist: focal
-      script:
-        - python3 --version
-
     - name: "Generate SBOM"
       os: linux
       dist: focal
@@ -33,7 +27,7 @@ jobs:
           output_dir: '/sbom/python'
       script:
         - echo "Generating SBOM"
-        - mkdir -p /sbom/python # Ensure the output directory exists
+        - sudo mkdir -p /sbom/python # Ensure the output directory exists
 
 after_success:
   - echo done
