@@ -4,7 +4,8 @@ vm:
 language: python
 services:
   - docker
-cache: bundler
+cache:
+  pip: true
 dist: bionic
 
 install:
@@ -13,7 +14,14 @@ install:
 
 jobs:
   include:
-    - os: linux
+    - name: "Run Tests"
+      os: linux
+      dist: focal
+      script:
+        - pytest # or any other test command
+
+    - name: "Generate SBOM"
+      os: linux
       dist: focal
       addons:
         sbom:
@@ -23,7 +31,9 @@ jobs:
           output_format: 'cyclonedx-json'
           input_dir: '.'
           output_dir: '/sbom/python'
-      script: true
+      script:
+        - echo "Generating SBOM"
+        - mkdir -p /sbom/python # Ensure the output directory exists
 
 after_success:
   - echo done
@@ -34,17 +44,3 @@ after_failure:
   - echo failed
   - echo $TRAVIS_TEST_RESULT
   - ls /sbom/python
-
-
-
- 
-
-
-
-
-
-
-
-  
-
-
