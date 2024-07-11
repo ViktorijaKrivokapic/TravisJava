@@ -1,45 +1,54 @@
-os: linux
-vm:
-  size: large
-language: python
-services:
-  - docker
-cache:
-  pip: true
-dist: bionic
-
-install:
-  - pip install -r requirements.txt
-  - pip list
-
 jobs:
   include:
-    - name: "Generate SBOM"
+    - name: Python with one level Output Directory and Input directory provided
       os: linux
       dist: focal
+      arch: amd64
+      language: python
       addons:
         sbom:
           on:
-            branch: 'main'
-          run_phase: 'script'
-          output_format: 'cyclonedx-json'
-          input_dir: '/'
-          output_dir: '/sbom/python'
+            branch: main
+          run_phase: before_script
+          input_dir: '/python'
+          output_dir: '/python'
+          output_format: cyclonedx-xml
+        deploy:
+          - provider: releases
+            edge: true
+            file: 
+              - 'python/python/*.xml'
+            token: $GHTOKEN
+            on:
+              branch: main
       script:
-        - echo "Generating SBOM"
-        - sudo mkdir -p /sbom/python # Ensure the output directory exists
-        - ls -la # List the contents of the current directory for debugging
-        - echo "Contents of the current directory"
-        - ls -la /sbom # List the contents of the /sbom directory for debugging
-        - echo "Contents of the /sbom directory"
-
-after_success:
-  - echo done
-  - echo $TRAVIS_TEST_RESULT
-  - ls -la /sbom/python # List the contents of the /sbom/python directory
-
-after_failure:
-  - echo failed
-  - echo $TRAVIS_TEST_RESULT
-  - ls -la /sbom/python # List the contents of the /sbom/python directory
-
+        - sudo apt-get install tree && tree
+        - cd python
+        - python hello_world.py
+        - pip install -r requirements.txt
+    - name: Python with two level Output Directory and Input directory provided
+      os: linux
+      dist: focal
+      arch: amd64
+      language: python
+      addons:
+        sbom:
+          on:
+            branch: main
+          run_phase: before_script
+          input_dir: '/python'
+          output_dir: '/python/result_sbom'
+          output_format: cyclonedx-json
+        deploy:
+          - provider: releases
+            edge: true
+            file: 
+              - 'result_sbom/python/*.json'
+            token: $GHTOKEN
+            on:
+              branch: main
+      script:
+        - sudo apt-get install tree && tree
+        - cd python
+        - python hello_world.py
+        - pip install -r requirements.txt
