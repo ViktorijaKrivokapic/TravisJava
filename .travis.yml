@@ -1,26 +1,24 @@
 os: linux
 dist: focal
-language: ruby
+language: node_js
 
 jobs:
   include:
     - name: "test" # existing functionality
       script:
-        - ruby --version
-    
-    - name: "sbom"
+        - npm -v
+    - name: "sbom" # SBOM generation job
       script:
-        - cd ruby
-        - bundle install
+        - cd node
+        - npm install
       addons:
         sbom:
           on:
             branch: 'main'
             pr: true
-          condition: false
-          run_phase: "after_success"
-          output_format: "spdx-json"
-          output_dir: "/test"
-          input_dir: "/ruby"
-
+          condition: true
+          run_phase: "after_failure" # Run SBOM generation after a failure
+          output_format: "spdx-json" # Specify the SBOM output format
+          output_dir: "/test" # Specify the output directory for SBOM
+          input_dir: "/node" # Specify the input directory for SBOM
 
