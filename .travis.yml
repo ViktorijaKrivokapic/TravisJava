@@ -20,8 +20,12 @@ jobs:
             branch: 'main'
             pr: true
           condition: true
-          run_phase: "after_failure" # Run SBOM generation after a failure
+          run_phase: "after_success" # Run SBOM generation after a failure
           output_format: "spdx-json" # Specify the SBOM output format
           output_dir: "/test" # Specify the output directory for SBOM
-          input_dir: "/node" # Specify the input directory for SBOM
+          input_dir: "/node" # Specify the input directory for SBOM  
+
+  after_success:
+    - cd test
+    - ls
 
