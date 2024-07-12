@@ -1,6 +1,8 @@
 os: linux
 dist: focal
 language: node_js
+node_js:
+  - "14"  # Use a recent version of Node.js
 
 jobs:
   include:
@@ -21,4 +23,5 @@ jobs:
           output_format: "spdx-json" # Specify the SBOM output format
           output_dir: "/test" # Specify the output directory for SBOM
           input_dir: "/node" # Specify the input directory for SBOM
+
 
