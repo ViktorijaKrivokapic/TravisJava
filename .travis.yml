@@ -15,10 +15,36 @@ jobs:
   include:
     - name: failing
       script: true
+dist: focal
+language: python
+
+jobs:
+  include:
+    - name: "test" # existing functionality
+      script: # existing functionality
+        - python --version
+
+    - name: "sbom"
+      script: 
+        - cd python
+        - pip install -r requirements.txt
+      addons:
+        sbom:
+          on:
+            branch: 'main'
+            pr: true
+          condition: false
+          run_phase: "after_success" 
+          output_format: "spdx-json" 
+          output_dir: "/test" 
+          input_dir: "/python"
 
 after_success:
   - echo done
   - echo $TRAVIS_TEST_RESULT
+
 after_failure:
   - echo failed
   - echo $TRAVIS_TEST_RESULT
+  - ls /test
+
