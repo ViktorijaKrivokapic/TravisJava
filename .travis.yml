@@ -25,14 +25,12 @@ jobs:
           output_dir: "/test" # Specify the output directory for SBOM
           input_dir: "/node" # Specify the input directory for SBOM
 
-  after_success:
-     echo done
-     echo $TRAVIS_TEST_RESULT
-     ls /node
-      
-  after_failure:      
-     echo failed
-     echo $TRAVIS_TEST_RESULT
-     ls /node       
+after_success:
+  - echo done
+  - echo $TRAVIS_TEST_RESULT
+  - ls /node
 
-
+after_failure:
+  - echo failed
+  - echo $TRAVIS_TEST_RESULT
+  - ls /node
