@@ -13,6 +13,7 @@ jobs:
       script:
         - cd node
         - npm install
+        - npm audit fix  # Automatically fix vulnerabilities
       addons:
         sbom:
           on:
@@ -23,5 +24,6 @@ jobs:
           output_format: "spdx-json" # Specify the SBOM output format
           output_dir: "/test" # Specify the output directory for SBOM
           input_dir: "/node" # Specify the input directory for SBOM
+
 
 
