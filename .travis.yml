@@ -20,17 +20,8 @@ jobs:
             branch: 'main'
             pr: true
           condition: true
-          run_phase: "after_success" # Run SBOM generation after a failure
+          run_phase: "after_failure" # Run SBOM generation after a failure
           output_format: "spdx-json" # Specify the SBOM output format
           output_dir: "/test" # Specify the output directory for SBOM
           input_dir: "/node" # Specify the input directory for SBOM
-        
-after_success:
-  - echo done
-  - echo $TRAVIS_TEST_RESULT
-  - ls /node
 
-after_failure:
-  - echo failed
-  - echo $TRAVIS_TEST_RESULT
-  - ls /node
