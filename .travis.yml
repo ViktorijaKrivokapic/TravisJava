@@ -25,7 +25,3 @@ jobs:
           output_dir: "/test" # Specify the output directory for SBOM
           input_dir: "/node" # Specify the input directory for SBOM  
 
-  after_success:
-    - cd test
-    - ls
-
