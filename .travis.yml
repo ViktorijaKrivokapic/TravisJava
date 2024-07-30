@@ -8,28 +8,17 @@ services:
 cache: bundler
 dist: bionic
 
+
 install: skip
 
 jobs:
   include:
-    - name: linux-build
-      os: linux
-      dist: bionic
-      script:
-        - echo "This is a Linux build"
-        - true
-
-    - name: macos-build
-      os: osx
-      osx_image: xcode12.5
-      script:
-        - echo "This is a macOS build"
-        - true
+    - name: failing
+      script: true
 
 after_success:
   - echo done
   - echo $TRAVIS_TEST_RESULT
-
 
 
 
