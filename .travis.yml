@@ -1,13 +1,17 @@
-language: ruby
+language: node_js
+node_js:
+  - "12"
 
 services:
-  - docker
+  - redis-server
 
 before_install:
-  - docker build -t carlad/sinatra .
-  - docker run -d -p 127.0.0.1:80:4567 carlad/sinatra /bin/sh -c "cd /root/sinatra; bundle exec foreman start;"
-  - docker ps -a
-  - docker run carlad/sinatra /bin/sh -c "cd /root/sinatra; bundle exec rake test"
+  - sudo systemctl start redis-server
+
+install:
+  - cd $TRAVIS_BUILD_DIR
+  - npm init -y  # This creates a package.json file if it's missing
+  - npm install
 
 script:
-  - bundle exec rake test
+  - npm test
