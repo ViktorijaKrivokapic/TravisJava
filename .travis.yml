@@ -1,49 +1,43 @@
 os: linux
-
-vm:
-  size: large
-
-language: java
+dist: bionic
+language: python
 
 services:
   - docker
 
-cache: bundler
-
-dist: bionic
-
-install: skip
-
 jobs:
   include:
-    - name: "Java 8 Build"
-      jdk: openjdk8
+    - name: "Generate SBOM"
+      os: linux
+      dist: focal
+      addons:
+        sbom:
+          on:
+            branch: 'main'
+          run_phase: 'after_success'
+          output_format: 'cyclonedx-json'
+          input_dir: '/python'
+          output_dir: '/sbom/python'
       script:
-        - echo "Running build with Java 8"
-        - true # Replace with your actual build and test commands for Java 8
+        - echo "Generating SBOM"
+        - sudo mkdir -p /sbom/python # Ensure the output directory exists
+        - cd python
+        - python hello_world.py
+        - pip install -r requirements.txt
 
-    - name: "Java 11 Build"
-      jdk: openjdk11
-      script:
-        - echo "Running build with Java 11"
-        - true # Replace with your actual build and test commands for Java 11
-
-    - name: "Java 17 Build"
-      jdk: openjdk17
-      script:
-        - echo "Running build with Java 17"
-        - true # Replace with your actual build and test commands for Java 17
+before_install:
+  - rvm use $(travis_internal_ruby) --fuzzy do ruby -S gem uninstall -aIx dpl
+  - rvm use $(travis_internal_ruby) --fuzzy do ruby -S gem install dpl -v 2.0.3.beta.4
 
 after_success:
   - echo done
   - echo $TRAVIS_TEST_RESULT
+  - ls /sbom/python
 
 after_failure:
   - echo failed
   - echo $TRAVIS_TEST_RESULT
-  
-
-
+  - ls /sbom/python
 
 
 
