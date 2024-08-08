@@ -1,26 +1,21 @@
-os: linux
+dist: focal
+language: ruby
 
-vm:
-  size: [large]
-language: java
+addons:
+  postgresql: '13'
+  apt:
+      packages:
+        - postgresql-13
+env:
+  global:
+   - PGUSER=postgres
+   - PGPORT=5432
+   - PGHOST=localhost
+before_install:
+ - sudo sed -i -e '/local.*peer/s/postgres/all/' -e 's/peer\|md5/trust/g' /etc/postgresql/*/main/pg_hba.conf
+ - sudo service postgresql restart
+ - sleep 1
+ - postgres --version
 
-services:
-  - redis-server
-
-cache: bundler
-dist: bionic
-
-install: skip
-
-jobs:
-  include:
-    - name: failing
-      script: true
-
-after_success:
-  - echo done
-  - echo $TRAVIS_TEST_RESULT
-
-after_failure:
-  - echo failed
-  - echo $TRAVIS_TEST_RESULT
+script:
+  - psql -c 'create database travis_ci_test;' -U postgres
