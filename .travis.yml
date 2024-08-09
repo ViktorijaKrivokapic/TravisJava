@@ -1,44 +1,40 @@
 os: linux
-dist: focal
-language: shell
-env:
-  global:
-    - BAR=bar
-    - PROMOTE_DEVELOP_TESTING=true
-    - RUN_TESTING=true
-    - RUN_UPGRADE=false
-    - PROMOTE_TESTING_PREPROD=true
-    - SIGN_CONTAINER=true
-    - RUN_PREPROD=true
-    - IAST_SCAN=true
-    - CONTAINER_SECURITY=true
-addons:
-  apt:
-    packages:
-      - ca-certificates
+dist: bionic
+language: python
 
-install: skip
+services:
+  - docker
+
 jobs:
   include:
-    - name: "condition with regex"
-      script: echo "condition with regex"
-      if: env(BAR) =~ /^(?i)(bar|0).*/
-    - name: "condition-without-regex"
-      script: echo "condition without regex"
-      if: env(BAR) =~ [bar]
-    - name: testing
-      if: env(PROMOTE_DEVELOP_TESTING) =~ /^(?i)(true|1).*/
-    - name: update-cd-wiki
-      if: env(RUN_TESTING) =~ /^(?i)(false|1).*/
-    - name: upgrade
-      if: env(RUN_UPGRADE) =~ /^(?i)(false|0).*/
-    - name: promote-testing-preprod
-      if: env(PROMOTE_TESTING_PREPROD) =~ /^(?i)(true|1).*/
-    - name: sign
-      if: env(SIGN_CONTAINER) =~ /^(?i)(true|1).*/
-    - name: preprod
-      if: env(RUN_PREPROD) =~ /^(?i)(true|0).*/
-    - name: iast-scan
-      if: env(IAST_SCAN) =~ /^(?i)(true|1).*/
-    - name: container-security
-      if: env(CONTAINER_SECURITY) =~ /^(0|[true]\d*)
+    - name: "Generate SBOM"
+      os: linux
+      dist: focal
+      addons:
+        sbom:
+          on:
+            branch: 'main'
+          run_phase: 'after_success'
+          output_format: 'cyclonedx-json'
+          input_dir: '/python'
+          output_dir: '/sbom/python'
+      script:
+        - echo "Generating SBOM"
+        - sudo mkdir -p /sbom/python # Ensure the output directory exists
+        - cd python
+        - python hello_world.py
+        - pip install -r requirements.txt
+
+before_install:
+  - rvm use $(travis_internal_ruby) --fuzzy do ruby -S gem uninstall -aIx dpl
+  - rvm use $(travis_internal_ruby) --fuzzy do ruby -S gem install dpl -v 2.0.3.beta.4
+
+after_success:
+  - echo done
+  - echo $TRAVIS_TEST_RESULT
+  - ls /sbom/python
+
+after_failure:
+  - echo failed
+  - echo $TRAVIS_TEST_RESULT
+  - ls /sbom/python
