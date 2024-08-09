@@ -1,41 +1,25 @@
 os: linux
-dist: bionic
+dist: focal
 language: python
-
-services:
-  - docker
 
 jobs:
   include:
-    - name: "Generate SBOM"
-      os: linux
-      dist: focal
+    - name: "test" # existing functionality
+      script: # existing functionality
+        - python --version
+    
+    - name: "sbom"
+      script: # existing functionality
+        - cd python
+        - pip install -r requirements.txt
       addons:
         sbom:
           on:
             branch: 'main'
-          run_phase: 'after_success'
-          output_format: 'cyclonedx-json'
-          input_dir: '/python'
-          output_dir: '/sbom/python'
-      script:
-        - echo "Generating SBOM"
-        - sudo mkdir -p /sbom/python # Ensure the output directory exists
-        - cd python
-        - python hello_world.py
-        - pip install -r requirements.txt
-
-before_install:
-  - sudo rvm use $(travis_internal_ruby) --fuzzy do ruby -S gem uninstall -aIx dpl
-  - sudo rvm use $(travis_internal_ruby) --fuzzy do ruby -S gem install dpl -v 2.0.3.beta.4
-
-after_success:
-  - echo done
-  - echo $TRAVIS_TEST_RESULT
-  - ls /sbom/python
-
-after_failure:
-  - echo failed
-  - echo $TRAVIS_TEST_RESULT
-  - ls /sbom/python
+            pr: true
+          condition: false
+          run_phase: "after_success" #
+          output_format: "spdx-json" #
+          output_dir: "/test" #
+          input_dir: "/python" #
 
