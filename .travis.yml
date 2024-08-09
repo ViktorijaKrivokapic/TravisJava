@@ -11,7 +11,7 @@ jobs:
     - name: "sbom"
       script: # existing functionality
         - cd python
-        - pip install -r requirements.txt
+        - sudo pip install -r requirements.txt
       addons:
         sbom:
           on:
