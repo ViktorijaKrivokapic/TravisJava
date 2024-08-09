@@ -26,8 +26,8 @@ jobs:
         - pip install -r requirements.txt
 
 before_install:
-  - rvm use $(travis_internal_ruby) --fuzzy do ruby -S gem uninstall -aIx dpl
-  - rvm use $(travis_internal_ruby) --fuzzy do ruby -S gem install dpl -v 2.0.3.beta.4
+  - sudo rvm use $(travis_internal_ruby) --fuzzy do ruby -S gem uninstall -aIx dpl
+  - sudo rvm use $(travis_internal_ruby) --fuzzy do ruby -S gem install dpl -v 2.0.3.beta.4
 
 after_success:
   - echo done
@@ -38,3 +38,4 @@ after_failure:
   - echo failed
   - echo $TRAVIS_TEST_RESULT
   - ls /sbom/python
+
