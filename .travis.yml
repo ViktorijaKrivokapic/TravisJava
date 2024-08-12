@@ -1,43 +1,28 @@
 os: linux
-dist: xenial
-language: shell
-env:
-  global:
-    - BAR=bar
-    - PROMOTE_DEVELOP_TESTING=true
-    - RUN_TESTING=true
-    - RUN_UPGRADE=true
-    - PROMOTE_TESTING_PREPROD=true
-    - SIGN_CONTAINER=true
-    - RUN_PREPROD=true
-    - IAST_SCAN=true
-    - CONTAINER_SECURITY=true
-addons:
-  snaps:
-    - hugo
+
+vm:
+  size: [large]
+language: java
+services:
+  - docker
+cache: bundler
+dist: xenial  # Updated from bionic to xenial
 
 install: skip
+
+addons:
+  snaps:
+    - hugo  # Added Snap package
+
 jobs:
   include:
-    - name: "condition with regex"
-      script: echo "condition with regex"
-      if: env(BAR) =~ /^(?i)(bar|1).*/
-    - name: "condition-without-regex"
-      script: echo "condition without regex"
-      if: env(BAR) =~ [bar]
-      if: env(PROMOTE_DEVELOP_TESTING) =~ /^(?i)(true|1).*/
-    - name: testing
-      if: env(RUN_TESTING) =~ /^(?i)(true|1).*/
-    - name: upgrade
-      if: env(RUN_UPGRADE) =~ /^(?i)(true|1).*/
-    - name: promote-testing-preprod
-      if: env(PROMOTE_TESTING_PREPROD) =~ /^(?i)(true|1).*/
-    - name: sign
-      if: env(SIGN_CONTAINER) =~ /^(?i)(true|1).*/
-    - name: preprod
-      if: env(RUN_PREPROD) =~ /^(?i)(true|1).*/
-    - name: iast-scan
-      if: env(IAST_SCAN) =~ /^(?i)(true|1).*/
-    - name: container-security
-      if: env(CONTAINER_SECURITY) =~ /^(?i)(true|1).*/
-    - name: update-cd-wiki
+    - name: failing
+      script: true
+
+after_success:
+  - echo done
+  - echo $TRAVIS_TEST_RESULT
+
+after_failure:
+  - echo failed
+  - echo $TRAVIS_TEST_RESULT
