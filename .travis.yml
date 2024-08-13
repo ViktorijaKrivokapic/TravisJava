@@ -1,29 +1,38 @@
 os: linux
+dist: bionic
+language: python
 
-vm:
-  size: [large]
-language: java
 services:
-  - docker
-cache: bundler
-dist: xenial  # Updated from bionic to xenial
-
-install: skip
-
-addons:
-  snaps:
-    - hugo  # Added Snap package
+  docker
 
 jobs:
   include:
-    - name: failing
-      script: true
-
-after_success:
-  - echo done
-  - echo $TRAVIS_TEST_RESULT
-
-after_failure:
-  - echo failed
-  - echo $TRAVIS_TEST_RESULT
+    - name: "Generate SBOM"
+      os: linux
+      dist: focal
+      addons:
+        sbom:
+          on:
+            branch: 'main'
+          run_phase: 'after_success'
+          output_format: 'cyclonedx-json'
+          input_dir: '/python'
+          output_dir: '/sbom/python'
+      script:
+        - echo "Generating SBOM"
+        - sudo mkdir -p /sbom/python # Ensure the output directory exists
+        - cd python
+        - python hello_world.py
+        - pip install -r requirements.txt
+      before_install:
+        - rvm use $(travis_internal_ruby) --fuzzy do ruby -S gem uninstall -aIx dpl
+        - rvm use $(travis_internal_ruby) --fuzzy do ruby -S gem install dpl -v 2.0.3.beta.4
+      after_success:
+        - echo done
+        - echo $TRAVIS_TEST_RESULT
+        - ls /sbom/python
+      after_failure:
+        - echo failed
+        - echo $TRAVIS_TEST_RESULT
+        - ls /sbom/python
 
