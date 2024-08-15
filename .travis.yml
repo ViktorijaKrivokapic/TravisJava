@@ -16,25 +16,38 @@ dist: bionic
 
 install: skip
 
+stages:
+  - name: "Build"
+  - name: "Test"
+
 jobs:
   include:
-    - name: "Java 8 Build"
+    - stage: "Build"
+      name: "Build Java 8"
       jdk: openjdk8
       script:
         - echo "Running build with Java 8"
         - true # Replace with your actual build and test commands for Java 8
 
-    - name: "Java 11 Build"
+    - stage: "Build"
+      name: "Build Java 11"
       jdk: openjdk11
       script:
         - echo "Running build with Java 11"
         - true # Replace with your actual build and test commands for Java 11
 
-    - name: "Java 17 Build"
+    - stage: "Build"
+      name: "Build Java 17"
       jdk: openjdk17
       script:
         - echo "Running build with Java 17"
         - true # Replace with your actual build and test commands for Java 17
+
+    - stage: "Test"
+      name: "Failing Job"
+      script:
+        - true # Replace with your actual test commands or setup
+      # No need to specify `jdk` here, as it's not related to the Java environment directly
 
 after_success:
   - echo done
