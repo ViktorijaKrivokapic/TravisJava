@@ -1,59 +1,17 @@
-os: linux
-
-vm:
-  size: large
-
-language: java
+language: node_js
+node_js:
+  - "12"
 
 services:
-  - docker
+  - redis-server
 
-cache:
-  directories:
-    - bundler
+before_install:
+  - sudo systemctl start redis-server
 
-dist: bionic
+install:
+  - cd $TRAVIS_BUILD_DIR
+  - npm init -y  # This creates a package.json file if it's missing
+  - npm install
 
-install: skip
-
-stages:
-  - name: "Build"
-  - name: "Test"
-
-jobs:
-  include:
-    - stage: "Build"
-      name: "Build Java 8"
-      jdk: openjdk8
-      script:
-        - echo "Running build with Java 8"
-        - true # Replace with your actual build and test commands for Java 8
-
-    - stage: "Build"
-      name: "Build Java 11"
-      jdk: openjdk11
-      script:
-        - echo "Running build with Java 11"
-        - true # Replace with your actual build and test commands for Java 11
-
-    - stage: "Build"
-      name: "Build Java 17"
-      jdk: openjdk17
-      script:
-        - echo "Running build with Java 17"
-        - true # Replace with your actual build and test commands for Java 17
-
-    - stage: "Test"
-      name: "Failing Job"
-      script:
-        - true # Replace with your actual test commands or setup
-      # No need to specify `jdk` here, as it's not related to the Java environment directly
-
-after_success:
-  - echo done
-  - echo $TRAVIS_TEST_RESULT
-
-after_failure:
-  - echo failed
-  - echo $TRAVIS_TEST_RESULT
-
+script:
+  - npm test
