@@ -1,5 +1,5 @@
 language: bash
 services:
- - docker
- script:
+  - docker
+script:
   - sudo docker run hello-world
