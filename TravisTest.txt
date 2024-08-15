@@ -1,4 +1,2 @@
 BSFY-249 test 2
-nova izmjena
-retriggering build
-triggering build
+
