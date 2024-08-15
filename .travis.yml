@@ -1,34 +1,44 @@
 os: linux
-
-vm:
-  size: large
-
-language: java
-
-services:
-  - postgresql
-
-cache:
-  directories:
-    - bundler
-
-dist: bionic
+dist: focal
+language: shell
+env:
+  global:
+    - BAR=bar
+    - PROMOTE_DEVELOP_TESTING=true
+    - RUN_TESTING=true
+    - RUN_UPGRADE=false
+    - PROMOTE_TESTING_PREPROD=true
+    - SIGN_CONTAINER=true
+    - RUN_PREPROD=true
+    - IAST_SCAN=true
+    - CONTAINER_SECURITY=true
+addons:
+  apt:
+    packages:
+      - ca-certificates
 
 install: skip
-
-before_script:
-  - psql -c 'create database test_db;' -U postgres
-
 jobs:
   include:
-    - name: failing
-      script:
-        - true
-
-after_success:
-  - echo done
-  - echo $TRAVIS_TEST_RESULT
-
-after_failure:
-  - echo failed
-  - echo $TRAVIS_TEST_RESULT
+    - name: "condition with regex"
+      script: echo "condition with regex"
+      if: env(BAR) =~ /^(?i)(bar|0).*/
+    - name: "condition-without-regex"
+      script: echo "condition without regex"
+      if: env(BAR) =~ [bar]
+    - name: testing
+      if: env(PROMOTE_DEVELOP_TESTING) =~ /^(?i)(true|1).*/
+    - name: update-cd-wiki
+      if: env(RUN_TESTING) =~ /^(?i)(false|1).*/
+    - name: upgrade
+      if: env(RUN_UPGRADE) =~ /^(?i)(false|0).*/
+    - name: promote-testing-preprod
+      if: env(PROMOTE_TESTING_PREPROD) =~ /^(?i)(true|1).*/
+    - name: sign
+      if: env(SIGN_CONTAINER) =~ /^(?i)(true|1).*/
+    - name: preprod
+      if: env(RUN_PREPROD) =~ /^(?i)(true|0).*/
+    - name: iast-scan
+      if: env(IAST_SCAN) =~ /^(?i)(true|1).*/
+    - name: container-security
+      if: env(CONTAINER_SECURITY) =~ /^(0|[true]\d*)
