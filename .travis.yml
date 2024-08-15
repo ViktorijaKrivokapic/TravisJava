@@ -1,5 +1,24 @@
-language: bash
+os: linux
+
+vm:
+  size: [large]
+language: java
 services:
   - docker
-script:
-  - sudo docker run hello-world
+cache: bundler
+dist: bionic
+
+
+install: skip
+
+jobs:
+  include:
+    - name: failing
+      script: true
+
+after_success:
+  - echo done
+  - echo $TRAVIS_TEST_RESULT
+after_failure:
+  - echo failed
+  - echo $TRAVIS_TEST_RESULT
