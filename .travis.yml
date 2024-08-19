@@ -1,20 +1,43 @@
-sudo: required
 os: linux
-rvm: 2.6.3
-
-language: ruby
+dist: bionic
+language: python
 
 services:
-  - docker
+  
+docker
 
+jobs:
+  include:
+    
+name: "Generate SBOM"
+    os: linux
+    dist: focal
+    addons:
+      sbom:
+        on:
+          branch: 'main'
+        run_phase: 'after_success'
+        output_format: 'cyclonedx-json'
+        input_dir: '/python'
+        output_dir: '/sbom/python'
+    script:
+echo "Generating SBOM"
+sudo mkdir -p /sbom/python # Ensure the output directory exists
+cd python
+python hello_world.py
+pip install -r requirements.txt
 before_install:
-  - sudo systemctl start docker # Start Docker service
-  - sleep 10 # Wait for Docker to start
-  - sudo docker info # Check if Docker is running
-  - sudo docker pull carlad/sinatra
-  - sudo docker run -d -p 127.0.0.1:80:4567 carlad/sinatra /bin/sh -c "cd /root/sinatra; bundle exec foreman start;"
-  - sudo docker ps -a
-  - sudo docker run carlad/sinatra /bin/sh -c "cd /root/sinatra; bundle exec rake test"
+rvm use $(travis_internal_ruby) --fuzzy do ruby -S gem uninstall -aIx dpl
+rvm use $(travis_internal_ruby) --fuzzy do ruby -S gem install dpl -v 2.0.3.beta.4
 
-script:
-  - bundle exec rake test
+after_success:
+  
+echo done
+echo $TRAVIS_TEST_RESULT
+ls /sbom/python
+
+after_failure:
+  
+echo failed
+echo $TRAVIS_TEST_RESULT
+ls /sbom/python
