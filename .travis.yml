@@ -1,7 +1,6 @@
 os: linux
 
-vm:
-  size: [large]
+
 language: java
 services:
   - docker
