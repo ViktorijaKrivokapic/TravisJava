@@ -1,11 +1,11 @@
-os: linux
+os: windows
 
 
 language: java
 services:
   - docker
 cache: bundler
-dist: bionic
+dist: focal
 
 
 install: skip
