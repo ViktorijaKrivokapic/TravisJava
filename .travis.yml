@@ -5,7 +5,7 @@ language: java
 services:
   - docker
 cache: bundler
-dist: xenial
+dist: jammy
 
 
 install: skip
