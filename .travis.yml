@@ -2,25 +2,22 @@ os: linux
 
 vm:
   size: large
-language: java
-services:
-  - docker
-cache:
-  directories:
-    - $HOME/.m2  # Maven dependencies
-    - $HOME/.gradle  # Gradle dependencies
+
+language: go
+
 dist: bionic
 
-install: skip
+install:
+  # Initialize Go module and prepare dependencies
+  - if [ ! -f go.mod ]; then go mod init example.com/my-go-project; fi
+  - go mod tidy
 
-jobs:
-  include:
-    - name: failing
-      script: true
+go:
+  - 1.22.1 # Specify Go version(s)
+
+script:
+  # Run tests in the repository
+  - go test -v ./...
 
 after_success:
-  - echo done
-  - echo $TRAVIS_TEST_RESULT
-after_failure:
-  - echo failed
-  - echo $TRAVIS_TEST_RESULT
+  - echo "Build and tests passed successfully!"
