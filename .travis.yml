@@ -11,7 +11,7 @@ install:
   - go mod tidy
 
 go:
-  - 1.21.2 # Specify Go version(s)
+  - master # Specify Go version(s)
 
 script:
   # Run tests in the repository
