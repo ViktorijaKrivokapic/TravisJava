@@ -1,7 +1,5 @@
 os: linux
 
-vm:
-  size: large
 
 language: go
 
