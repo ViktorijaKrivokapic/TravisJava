@@ -5,8 +5,7 @@ services:
   - docker
 cache:
   directories:
-    - $HOME/.m2    # Cache Maven dependencies (for projects using Maven)
-    - $HOME/.gradle # Cache Gradle dependencies (for projects using Gradle)
+    - $HOME/.m2    # Cache Maven dependencies
 dist: focal
 
 install: skip
@@ -16,7 +15,7 @@ jobs:
     - name: failing
       script:
         - echo "Running tests"
-        - ./gradlew test # Replace with `mvn test` if using Maven
+        - mvn test # Maven test command
 
 after_success:
   - echo "Build succeeded"
@@ -26,7 +25,6 @@ after_failure:
   - echo "Build failed"
   - echo $TRAVIS_TEST_RESULT
 
-  
 
   
 
