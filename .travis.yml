@@ -1,12 +1,7 @@
-os: linux
-
+os: osx  
 
 language: java
-services:
-  - docker
-cache: bundler
-dist: bionic
-
+cache: bundler  
 
 install: skip
 
@@ -21,7 +16,7 @@ after_success:
 after_failure:
   - echo failed
   - echo $TRAVIS_TEST_RESULT
-  
+
 
   
 
