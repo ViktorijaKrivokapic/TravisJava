@@ -1,7 +1,6 @@
 os: osx  
 
-language: java
-cache: bundler  
+language: java 
 
 install: skip
 
