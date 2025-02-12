@@ -1,6 +1,13 @@
-os: osx  
+os: linux
 
-language: java 
+vm:
+  size: [large]
+language: java
+services:
+  - docker
+cache: bundler
+dist: bionic
+
 
 install: skip
 
