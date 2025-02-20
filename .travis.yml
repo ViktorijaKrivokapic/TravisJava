@@ -1,5 +1,6 @@
 os: linux
 
+
 language: java
 services:
   - docker
@@ -9,122 +10,24 @@ dist: bionic
 install: skip
 
 stages:
-  - build
-  - test
+  - Tests
   - deploy
 
 jobs:
   include:
-    - stage: build
-      name: Build
-      script:
-        - echo "Building the project..."
-        - cd Org-3-for-Travis/TravisJava  # Ensure we are in the correct directory
-        - mvn clean package
-      
-    - stage: test
-      name: Unit Tests
-      script:
-        - echo "Running unit tests..."
-        - cd Org-3-for-Travis/TravisJava
-        - mvn test
+    - name: failing
+      script: true
 
-    - stage: test
-      name: Integration Tests
-      script:
-        - echo "Running integration tests..."
-        - cd Org-3-for-Travis/TravisJava
-        - mvn verify
+    - stage: "Tests"                # Naming the Tests stage
+      name: "Unit Tests"            # Names the first Tests stage job
+      script: ./unit-tests
+
+    - stage: "Tests"
+      name: "Integration Tests"     # Names the second Tests stage job
+      script: ./integration-tests
 
     - stage: deploy
-      name: Deployment
-      script:
-        - echo "Deploying application..."
-        - cd Org-3-for-Travis/TravisJava
-        - ./deploy.sh  # Replace with actual deployment script
+      name: "Deploy to GCP"
+      script: ./deploy
 
-    - name: failing
-      script: false  # Ensuring this job fails for testing purposes
-
-after_success:
-  - echo done
-  - echo $TRAVIS_TEST_RESULT
-
-after_failure:
-  - echo failed
-  - echo $TRAVIS_TEST_RESULT
-  
-
-  
-  
-  
-  
-  
-
-  
-  
-  
-
-
-  
-
-  
-
-  
-
-  
-  
-
-  
-
-  
-
-  
-  
-
-  
-
-  
-  
-  
-
-  
-  
-  
-
-
-  
-
-  
-  
-
-  
-  
-
-
-  
-  
-
-
-  
-
-  
-  
-  
-
-
-
-
-  
-  
-  
-  
-
-
-
-  
-
-
-  
-  
 
