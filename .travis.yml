@@ -1,8 +1,7 @@
 os: linux
 
 language: java
-services:
-  - docker
+
 cache: bundler
 dist: bionic
 
