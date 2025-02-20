@@ -6,6 +6,7 @@ services:
 cache: bundler
 dist: bionic
 
+
 install: skip
 
 jobs:
@@ -13,40 +14,9 @@ jobs:
     - name: failing
       script: true
 
-    - name: "Job 1 - Sleep 30s"
-      script: sleep 30
-
-    - name: "Job 2 - Sleep 30s"
-      script: sleep 30
-
-    - name: "Job 3 - Sleep 30s"
-      script: sleep 30
-
-    - name: "Job 4 - Sleep 30s"
-      script: sleep 30
-
-    - name: "Job 5 - Sleep 30s"
-      script: sleep 30
-
-    - name: "Job 6 - Sleep 30s"
-      script: sleep 30
-
-    - name: "Job 7 - Sleep 30s"
-      script: sleep 30
-
-    - name: "Job 8 - Sleep 30s"
-      script: sleep 30
-
-    - name: "Job 9 - Sleep 30s"
-      script: sleep 30
-
-    - name: "Job 10 - Sleep 30s"
-      script: sleep 30
-
 after_success:
   - echo done
   - echo $TRAVIS_TEST_RESULT
-
 after_failure:
   - echo failed
   - echo $TRAVIS_TEST_RESULT
