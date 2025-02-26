@@ -1,24 +1,35 @@
 os: linux
 
+
 language: java
 
-cache: bundler
-dist: bionic
+services:
+  docker
 
+cache: bundler
+
+dist: bionic
 
 install: skip
 
 jobs:
   include:
-    - name: failing
-      script: true
+    - name: "Java 8 Build"
+      jdk: openjdk8
+      script:
+        - echo "Running build with Java 8"
+        - true # Replace with your actual build and test commands for Java 8
 
-after_success:
-  - echo done
-  - echo $TRAVIS_TEST_RESULT
-after_failure:
-  - echo failed
-  - echo $TRAVIS_TEST_RESULT
+    - name: "Java 11 Build"
+      jdk: openjdk11
+      script:
+        - echo "Running build with Java 11"
+        - true # Replace with your actual build and test commands for Java 11
+
+    - name: "Java 17 Build"
+      jdk: openjdk17
+      script:
+        - echo "Running build with Java 
 
   
   
