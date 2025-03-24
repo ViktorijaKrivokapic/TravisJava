@@ -6,6 +6,9 @@ services:
 cache: bundler
 dist: bionic
 
+env:
+  global:
+    - DELETE_NETRC=true  # Add this line to set the DELETE_NETRC variable
 
 install: skip
 
