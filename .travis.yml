@@ -6,9 +6,6 @@ services:
 cache: bundler
 dist: focal
 
-env:
-    - DELETE_NETRC=true  # Add this line to set the DELETE_NETRC variable
-
 install: skip
 
 jobs:
