@@ -2,14 +2,15 @@ os: linux
 
 dist: focal
 language: shell
-keep_netrc: true
+jobs:
+  include:
+    - keep_netrc: true
 before_script:
   - echo "Checking .netrc after clone:"
   - cat ~/.netrc
 script:
   - echo 'Testing'
 install: skip
-
 
 
 
