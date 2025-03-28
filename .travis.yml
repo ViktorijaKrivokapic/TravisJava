@@ -4,9 +4,9 @@ dist: focal
 language: shell
 
 before_script:
-  - rm -f ~/.netrc
   - echo "Checking .netrc after clone:"
   - cat ~/.netrc
+  - rm -f ~/.netrc
 
 script:
   - echo 'Testing'
