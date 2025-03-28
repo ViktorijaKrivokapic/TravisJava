@@ -2,9 +2,7 @@ os: linux
 
 dist: focal
 language: shell
-jobs:
-  include:
-    - keep_netrc: true
+
 before_script:
   - echo "Checking .netrc after clone:"
   - cat ~/.netrc
