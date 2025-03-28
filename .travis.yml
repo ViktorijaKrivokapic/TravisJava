@@ -4,10 +4,13 @@ dist: focal
 language: shell
 
 before_script:
+  - rm -f ~/.netrc
   - echo "Checking .netrc after clone:"
   - cat ~/.netrc
+
 script:
   - echo 'Testing'
+
 install: skip
 
 deploy:
@@ -17,6 +20,7 @@ deploy:
   keep_history: true
   on:
     branch: main
+
 
 
 
