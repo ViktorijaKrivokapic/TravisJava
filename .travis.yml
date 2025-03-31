@@ -1,6 +1,6 @@
 os: linux
 
-language: objective-c
+language: java
 services:
   - docker
 cache: bundler
@@ -10,9 +10,27 @@ dist: bionic
 install: skip
 
 jobs:
-  include:
-    - name: failing
-      script: true
+
+   
+      os: osx  
+      language: java
+      script:
+        - echo "Running Java on macOS"
+        - java -version
+
+    
+      os: osx
+      language: objective-c
+      script:
+        - echo "Running Objective-C on macOS"
+        - clang --version  # Check Objective-C compiler
+
+
+      os: osx
+      language: swift
+      script:
+        - echo "Running Swift on macOS"
+        - swift --version  # Check Swift version
 
 after_success:
   - echo done
