@@ -1,6 +1,6 @@
-os: linux
+os: osx
 
-language: objective-c
+language: java
 services:
   - docker
 cache: bundler
