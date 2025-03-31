@@ -1,6 +1,6 @@
 os: linux
 
-language: swift
+language: objective-c
 services:
   - docker
 cache: bundler
