@@ -1,6 +1,6 @@
-os: osx
+os: linux
 
-language: java
+language: swift
 services:
   - docker
 cache: bundler
